@@ -1,0 +1,97 @@
+@charset "utf-8";
+
+/* reset style */
+body,div,p,ul,ol,li,dl,dt,dd,th,td,pre,form,fieldset, input, textarea, p, blockquote,th,td{ margin:0;padding:0;}
+article,aside,dialog,figure,footer,header,legend,nav,section{ margin:0; padding:0; display:block;} 
+h1,h2,h3,h4,h5,h6{margin:0;padding:0;font-weight:normal; font-size:100%;}
+fieldset,img{ border:0;}
+legend{display:none;}
+ul,ol{ list-style:none;}
+q:before,q:after{content:'';}
+address,caption,cite,code,dfn,em,th,var{font-style:normal;font-weight:normal;}
+caprion,th{ text-align:left;}
+abbr,acronym{border:0;}
+textarea{ resize:none;}
+input,textarea,input:focus,select{ outline:none; font-family:\5FAE\8F6F\96C5\9ED1,\5b8b\4f53,Tahoma,Arial;}
+html,body{height: 100%;}
+strong{font-weight:normal;}
+a{ color: @txtcolor;; text-decoration:none; outline:0;}
+
+input::-webkit-input-placeholder { color: #adadad !important;}
+textarea::-webkit-input-placeholder { color: #adadad !important;}
+
+/* 内容层 z-index:2起 */
+/* 下拉层 z-index:10起 */
+/* 有遮罩层 z-index:50起  */
+/* 页面广告及遮罩 z-index:100以下  */
+/* 大图预览层 z-index:100起  */
+/* 大图预览层广告 z-index:120起  */
+
+/* ************************* */
+/* ************************* */
+/* *********common********** */
+@path:~'img/'; 
+@img_custom:~'ui_custom.png';
+@version:~`((new Date()).getMonth()+1) + "-" + (new Date()).getDate()+ "-" + (new Date()).getHours() +"-" +  (new Date()).getMinutes() `;
+
+@txtcolor:#222226;
+@txtcolor_gray:#6b6e74;
+@txtcolor_gray8:#888;
+@txtcolor_orange:#df7255;
+@txtcolor_red:#cc0000;
+@txtcolor_blue:#2a79bd;
+@txtcolor_green:#6dbf88;
+@txtcolor_input:#adadad;
+@linecolor:#e9e9e9;
+@bd:#dbdbdb;
+@bd_normal:#fff;
+@bd_hover:#f3f3f3;
+@bd_active:#eaeaea;
+@orange_normal:#ee6e4c;
+@orange_hover:#fa7653;
+@orange_active:#e46746;
+@green_normal:#6dbf88;
+@green_hover:#6dbf88;
+@green_active:#5fb17a;
+@blue_normal:#3bb3ff;
+@blue_hover:#4ebaff;
+@blue_active:#32abf8;
+@warntxt_green:#66b63a;
+@warntxt_red:#ff0000;
+@txtcolor_price:#ff6238;
+@bd_preview:#4e4d4d;
+
+
+.fl{float: left;}
+.fr{float: right;}
+.auto{ margin-left: auto; margin-right: auto;}
+.clearfix:after {content:"."; display:block; font-size:0; height:0; clear:both; visibility:hidden;}  
+* html .clearfix { height:1%;}  
+.clearfix {display:block;}
+.zoom{zoom:1;}
+.cb{clear:both;} 
+.txtover{ white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}
+.redtxt{color: @txtcolor_red;}
+a.close{ position: absolute; top: 5px; right: 5px; display: block; width: 20px; height: 20px;  background:    url("@{path}@{img_custom}?v=@{version}") no-repeat -210px 0;  }
+a.close:hover{background-position:-230px 0;}
+a.close:hover{background-position:-250px 0;}
+
+/* 各种弹出层 */
+.boxshadow{ box-shadow: 0 3px 5px #d9d9d9; border: 1px solid #ddd; border-radius: 3px; background: #fff; }
+
+.boxshadow2{ box-shadow: 0 0 5px #666; border-radius: 2px; background: #fff; }
+.popup{ display: none; z-index: 52; position: absolute; top: 0; right: 0; width: 100%; height: 100%; }
+.popuphead { height: 50px; border-bottom: 1px solid @linecolor;
+	h3{font-size: 14px; line-height: 50px; padding-left: 30px; color: @txtcolor_gray;}
+	a.close{ top: 11px; right: 11px; background: url("@{path}@{img_custom}?v=@{version}") no-repeat -350px 0;}
+	a.close:hover{background-position:-230px 0;}
+	a.close:hover{background-position:-250px 0;}
+}
+.popupmask{ display:block; z-index: 51; position: absolute; top: 0; right: 0; width: 100%; height: 100%;   background: #333; opacity: 0.6;}
+.tipsbg{ z-index: 60; position: absolute; top: 50%; left: 50%;  background: rgba(244, 244, 244, 0.9); box-shadow: 0 0 8px #c6c6c6;  } 
+/* 各种弹窗的透明遮罩层 */
+.transparent_mask{ z-index: 10; display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;  background: rgba(0, 0, 0, 0); }
+
+/* ************************* */
+/* ************************* */
+/* ************************* */

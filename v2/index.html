@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>定制</title>
+	<link rel="stylesheet" href="<%$media_script_prefix%>/custom/v2/css/custom.css">
+	<script type="text/javascript">
+	document.domain="wps.cn";
+	</script>
+</head>
+<body>
+<div class="custom_scroll" ms-controller="mainCtrl" ms-class="w900:hideTask">
+	<!-- 头部导航 start -->
+	<div class="top_nav" ms-visible="showMe">
+		<ul class="top_nav_center">
+			<li ms-click="setValue('designerTag','all')"><a ms-class="active:designerTag == 'all'" href="#">全部</a></li>
+			<li ms-click="setValue('designerTag','ppt')"><a ms-class="active:designerTag == 'ppt'" href="#">PPT定制</a></li>
+			<li ms-click="setValue('designerTag','word')"><a ms-class="active:designerTag == 'word'" href="#">简历定制</a></li>
+			<li ms-click="setValue('designerTag','et')"><a ms-class="active:designerTag == 'et'" href="#">报表定制</a></li>
+			<li ms-click="setValue('designerTag','law')"><a ms-class="active:designerTag == 'law'" href="#">法律定制</a></li>
+			<li ms-click="setValue('designerTag','graphic')"><a ms-class="active:designerTag == 'graphic'" href="#">平面设计</a></li>
+		</ul>
+	</div>
+	<!-- 头部导航 end -->
+
+	<!-- 右侧导航 start -->
+	<ul class="right_nav" ms-visible="designerTag == 'all'&&showMe">
+		<li><a ms-click="submitTask()"  ms-click-2="sendCollect(2)" href="javascript:void(0);">发布需求</a></li>
+		<li ms-click="setValue('rightDesignerTag','ppt')"><a ms-class="active:rightDesignerTag == 'ppt'" href="#ppt">PPT定制</a></li>
+		<li ms-click="setValue('rightDesignerTag','word')"><a ms-class="active:rightDesignerTag == 'word'" href="#doc">简历定制</a></li>
+		<li ms-click="setValue('rightDesignerTag','et')"><a ms-class="active:rightDesignerTag == 'et'" href="#et">报表定制</a></li>
+		<li ms-click="setValue('rightDesignerTag','law')"><a ms-class="active:rightDesignerTag == 'law'" href="#law">法律定制</a></li>
+		<li ms-click="setValue('rightDesignerTag','design')"><a ms-class="active:rightDesignerTag == 'graphic'" href="#design">平面设计</a></li>
+		<li><a href="javascript:;" class="top" ms-click="returnToTop">TOP</a></li>
+	</ul>
+	<!-- 右侧导航 end -->
+	<!-- 定制首页   -->
+	<div ms-visible="showMe" class="custom_layout">
+		<!-- banner -->
+		<!-- <div class="csm_banner">
+			<h3>设计创意，个性化高端，持续提供超越客户期望的作品与服务</3>
+			<a ms-click="submitTask()" ms-click-2="sendCollect(1)" href="javascript:void(0);" class="btn_free">免费发布</a>
+		</div> -->
+
+		<div class="csm_banner">
+			<ul class="csm_banner_ul">
+				<li><a href="#"><img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wpp/801.jpg" alt=""></a></li>
+				<li style="display: none"><a href="#"><img src="http://wps.docer.wps.cn/application/partner/views/custom/v2/css/img/custom_ban.jpg?v=7-22-11-25" alt=""></a></li>
+			</ul>
+			<ul class="banner_dot_ul">
+				<li><a ms-class="active:topBannerIndex == 1" href="javascript:void(0);" ms-click="clickTopBanner(1, 2)"></a></li>
+				<li><a ms-class="active:topBannerIndex == 2" href="javascript:void(0);" ms-click="clickTopBanner(2, 1)"></a></li>
+			</ul>
+		</div>
+		<!-- PPT定制 内容展示  -->
+		<div class="custom_con" ms-visible="designerTag == 'all' || designerTag == 'ppt'">
+			<a class="location" name="ppt"></a>
+			<div class="csm_head">
+				<h3 class="csmtitle">PPT定制<a ms-visible="designerTag == 'all'" href="javascript:void(0);" class="all" target="_blank" ms-click="choseOneTypeDesigner('ppt')"  ms-click-2="sendCollect(5)">全部>></a></h3>
+				<div class="csmtab">
+					<ul class="dsg_type">
+						<li ms-repeat-el="designerTagData.wpp"><a href="#" ms-class="active:el.id==designerTagId.wpp" ms-text="el.name" ms-click="clickDesignerTag(el.id,'ppt')"></a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- 设计师内容切换 --> 
+			<!-- 个性简历 -->
+			<div class="tabcon_dsg" style="display: block;">
+				<div class="dsglist" >
+					<ul class="clearfix">
+						<li ms-visible="$index<hideMaxNum*pageIndex" ms-repeat-el="showDesignerData.wpp" ms-mouseenter="mouseenter($index)" ms-mouseleave="mouseleave($index)">
+							<div class="whitebg" >
+								<div class="dsgcon">
+									<div ms-click="designerShop($index)" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
+									<div class="worker_label">
+										<span ms-repeat-tag="el.tags" ms-text="tag"></span>
+									</div>
+									<div ms-click="designerShop($index)" class="dsgimg">
+										<a href="javascript:void(0);" > 
+											<img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.logo" alt="">
+											<span class="dsgname" ms-text="el.name"></span>
+											<span ms-visible="el.status==1" class="status">(空闲)</span>
+											<span ms-visible="el.status==2" class="status">(离线)</span>
+											<span ms-visible="el.status==3" class="status">(繁忙)</span>
+										</a>
+										<span class="dsg_sales">月销量 <span ms-text="el.total_order"></span>
+									</div>
+									<div class="dsg_prize">￥<span ms-text="designerPrice.wpp"></span>元/页</div>
+									<div class="cb"></div>
+									<a ms-attr-href="tencent://message/?uin={{el.qq}}&site=qq&menu=yes" class="btn_bd_orange2"  ms-click="sendCollect(3)" target="_top">在线咨询</a>
+									<!-- 20160615去掉	
+									<div ms-attr-id="dgrEmploy_1{{$index}}" class="btnc" style="display:block"><a href="javascript:void(0);" class="btn_hire">雇佣TA</a></div>
+									<div ms-attr-id="dgrEmploy_2{{$index}}" class="btnc">
+										<a ms-attr-href="tencent://message/?uin={{el.qq}}&site=qq&menu=yes" class="btn_orange"  ms-click="sendCollect(3)" target="_top">洽谈需求</a>
+										<a ms-click="customPay(el.id)"  ms-click-2="sendCollect(4)" href="javascript:void(0);" class="btn_bd_orange" target="_top">支付佣金</a>
+									</div>
+									-->
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 设计师  end -->
+		</div>
+		<!-- PPT定制 内容展示 end -->
+
+		<!-- 简历定制 内容展示  -->
+		<div class="custom_con" ms-visible="designerTag == 'all' || designerTag == 'word'">
+			<a class="location" name="doc"></a>
+			<div class="csm_head">
+				<h3 class="csmtitle">简历定制<a ms-visible="designerTag == 'all'" href="javascript:void(0);" class="all" target="_blank" ms-click="choseOneTypeDesigner('word')"  ms-click-2="sendCollect(5)">全部>></a></h3>
+				<div class="csmtab">
+					<ul class="dsg_type">
+						<li ms-repeat-el="designerTagData.word"><a href="#" ms-class="active:el.id==designerTagId.word" ms-text="el.name" ms-click="clickDesignerTag(el.id,'jianli')"></a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- 设计师内容切换 --> 
+			<!-- 个性简历 -->
+			<div class="tabcon_dsg" style="display: block;">
+				<div class="dsglist" >
+					<ul class="clearfix">
+						<li ms-visible="$index<hideMaxNum*pageIndex" ms-repeat-el="showDesignerData.word" ms-mouseenter="mouseenter($index)" ms-mouseleave="mouseleave($index)">
+							<div class="whitebg" >
+								<div class="dsgcon">
+									<div ms-click="designerShop($index)" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
+									<div class="worker_label">
+										<span>小样</span>
+										<span>小样小样</span>
+										<span>小样小样</span>
+										<span>小样</span>
+									</div>
+									<div ms-click="designerShop($index)" class="dsgimg">
+										<a href="javascript:void(0);" > 
+											<img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.logo" alt="">
+											<span class="dsgname" ms-text="el.name"></span>
+											<span ms-visible="el.status==1" class="status">(空闲)</span>
+											<span ms-visible="el.status==2" class="status">(离线)</span>
+											<span ms-visible="el.status==3" class="status">(繁忙)</span>
+										</a>
+										<span class="dsg_sales">月销量 <span ms-text="el.total_order"></span>
+									</div>
+									<div class="dsg_prize">￥<span ms-text="designerPrice.word"></span>元/页</div>
+									<div class="cb"></div>
+									<a ms-attr-href="tencent://message/?uin={{el.qq}}&site=qq&menu=yes" class="btn_bd_orange2"  ms-click="sendCollect(3)" target="_top">在线咨询</a>
+									<!-- 20160615去掉	
+									<div ms-attr-id="dgrEmploy_1{{$index}}" class="btnc" style="display:block"><a href="javascript:void(0);" class="btn_hire">雇佣TA</a></div>
+									<div ms-attr-id="dgrEmploy_2{{$index}}" class="btnc">
+										<a ms-attr-href="tencent://message/?uin={{el.qq}}&site=qq&menu=yes" class="btn_orange"  ms-click="sendCollect(3)" target="_top">洽谈需求</a>
+										<a ms-click="customPay(el.id)"  ms-click-2="sendCollect(4)" href="javascript:void(0);" class="btn_bd_orange" target="_top">支付佣金</a>
+									</div>
+									-->
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 设计师  end -->
+		</div>
+		<!-- 简历定制 内容展示 end -->
+
+		<!-- 报表定制 内容展示  -->
+		<div class="custom_con" ms-visible="designerTag == 'all' || designerTag == 'et'">
+			<a class="location" name="et"></a>
+			<div class="csm_head">
+				<h3 class="csmtitle">报表定制<a ms-visible="designerTag == 'all'" href="javascript:void(0);" class="all" target="_blank" ms-click="choseOneTypeDesigner('et')"  ms-click-2="sendCollect(5)">全部>></a></h3>
+				<div class="csmtab">
+					<ul class="dsg_type">
+						<li ms-repeat-el="designerTagData.et"><a href="#" ms-class="active:el.id==designerTagId.et" ms-text="el.name" ms-click="clickDesignerTag(el.id,'baobiao')"></a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- 设计师内容切换 --> 
+			<!-- 个性简历 -->
+			<div class="tabcon_dsg" style="display: block;">
+				<div class="dsglist" >
+					<ul class="clearfix">
+						<li ms-visible="$index<hideMaxNum*pageIndex" ms-repeat-el="showDesignerData.et" ms-mouseenter="mouseenter($index)" ms-mouseleave="mouseleave($index)">
+							<div class="whitebg" >
+								<div class="dsgcon">
+									<div ms-click="designerShop($index)" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
+									<div class="worker_label">
+										<span>小样</span>
+										<span>小样小样</span>
+										<span>小样小样</span>
+										<span>小样</span>
+									</div>
+									<div ms-click="designerShop($index)" class="dsgimg">
+										<a href="javascript:void(0);" > 
+											<img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.logo" alt="">
+											<span class="dsgname" ms-text="el.name"></span>
+											<span ms-visible="el.status==1" class="status">(空闲)</span>
+											<span ms-visible="el.status==2" class="status">(离线)</span>
+											<span ms-visible="el.status==3" class="status">(繁忙)</span>
+										</a>
+										<span class="dsg_sales">月销量 <span ms-text="el.total_order"></span>
+									</div>
+									<div class="dsg_prize">￥<span ms-text="designerPrice.et"></span>元/页</div>
+									<div class="cb"></div>
+									<a ms-attr-href="tencent://message/?uin={{el.qq}}&site=qq&menu=yes" class="btn_bd_orange2"  ms-click="sendCollect(3)" target="_top">在线咨询</a>
+									<!-- 20160615去掉	
+									<div ms-attr-id="dgrEmploy_1{{$index}}" class="btnc" style="display:block"><a href="javascript:void(0);" class="btn_hire">雇佣TA</a></div>
+									<div ms-attr-id="dgrEmploy_2{{$index}}" class="btnc">
+										<a ms-attr-href="tencent://message/?uin={{el.qq}}&site=qq&menu=yes" class="btn_orange"  ms-click="sendCollect(3)" target="_top">洽谈需求</a>
+										<a ms-click="customPay(el.id)"  ms-click-2="sendCollect(4)" href="javascript:void(0);" class="btn_bd_orange" target="_top">支付佣金</a>
+									</div>
+									-->
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 设计师  end -->
+		</div>
+		<!-- 报表定制 内容展示 end -->
+
+		<!-- 法律定制 内容展示  -->
+		<div class="custom_con" ms-visible="designerTag == 'all' || designerTag == 'law'">
+			<a class="location" name="law"></a>
+			<div class="csm_head">
+				<h3 class="csmtitle">法律定制<a ms-visible="designerTag == 'all'" href="javascript:void(0);" class="all" target="_blank" ms-click="choseOneTypeDesigner('law')"  ms-click-2="sendCollect(5)">全部>></a></h3>
+				<div class="csmtab">
+					<ul class="dsg_type">
+						<li ms-repeat-el="designerTagData.law"><a href="#" ms-class="active:el.id==designerTagId.law" ms-text="el.name" ms-click="clickDesignerTag(el.id,'law')"></a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- 设计师内容切换 --> 
+			<!-- 个性简历 -->
+			<div class="tabcon_dsg" style="display: block;">
+				<div class="dsglist" >
+					<ul class="clearfix">
+						<li ms-visible="$index<hideMaxNum*pageIndex" ms-repeat-el="showDesignerData.law" ms-mouseenter="mouseenter($index)" ms-mouseleave="mouseleave($index)">
+							<div class="whitebg" >
+								<div class="dsgcon">
+									<div ms-click="designerShop($index)" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
+									<div class="worker_label">
+										<span>小样</span>
+										<span>小样小样</span>
+										<span>小样小样</span>
+										<span>小样</span>
+									</div>
+									<div ms-click="designerShop($index)" class="dsgimg">
+										<a href="javascript:void(0);" > 
+											<img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.logo" alt="">
+											<span class="dsgname" ms-text="el.name"></span>
+											<span ms-visible="el.status==1" class="status">(空闲)</span>
+											<span ms-visible="el.status==2" class="status">(离线)</span>
+											<span ms-visible="el.status==3" class="status">(繁忙)</span>
+										</a>
+										<span class="dsg_sales">月销量 <span ms-text="el.total_order"></span>
+									</div>
+									<div class="dsg_prize">￥<span ms-text="designerPrice.law"></span>元/页</div>
+									<div class="cb"></div>
+									<a ms-attr-href="tencent://message/?uin={{el.qq}}&site=qq&menu=yes" class="btn_bd_orange2"  ms-click="sendCollect(3)" target="_top">在线咨询</a>
+									<!-- 20160615去掉	
+									<div ms-attr-id="dgrEmploy_1{{$index}}" class="btnc" style="display:block"><a href="javascript:void(0);" class="btn_hire">雇佣TA</a></div>
+									<div ms-attr-id="dgrEmploy_2{{$index}}" class="btnc">
+										<a ms-attr-href="tencent://message/?uin={{el.qq}}&site=qq&menu=yes" class="btn_orange"  ms-click="sendCollect(3)" target="_top">洽谈需求</a>
+										<a ms-click="customPay(el.id)"  ms-click-2="sendCollect(4)" href="javascript:void(0);" class="btn_bd_orange" target="_top">支付佣金</a>
+									</div>
+									-->
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 设计师  end -->
+		</div>
+		<!-- 法律定制 内容展示 end -->
+
+		<!-- 平面设计 内容展示  -->
+		<div class="custom_con" ms-visible="designerTag == 'all' || designerTag == 'graphic'">
+			<a class="location" name="design"></a>
+			<div class="csm_head">
+				<h3 class="csmtitle">平面设计<a ms-visible="designerTag == 'all'" href="javascript:void(0);" class="all" target="_blank" ms-click="choseOneTypeDesigner('graphic')"  ms-click-2="sendCollect(5)">全部>></a></h3>
+				<div class="csmtab">
+					<ul class="dsg_type">
+						<li ms-repeat-el="designerTagData.graphic"><a href="#" ms-class="active:el.id==designerTagId.graphic" ms-text="el.name" ms-click="clickDesignerTag(el.id,'graphic')"></a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- 设计师内容切换 --> 
+			<!-- 个性简历 -->
+			<div class="tabcon_dsg" style="display: block;">
+				<div class="dsglist" >
+					<ul class="clearfix">
+						<li ms-visible="$index<hideMaxNum*pageIndex" ms-repeat-el="showDesignerData.graphic" ms-mouseenter="mouseenter($index)" ms-mouseleave="mouseleave($index)">
+							<div class="whitebg" >
+								<div class="dsgcon">
+									<div ms-click="designerShop($index)" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
+									<div class="worker_label">
+										<span>小样</span>
+										<span>小样小样</span>
+										<span>小样小样</span>
+										<span>小样</span>
+									</div>
+									<div ms-click="designerShop($index)" class="dsgimg">
+										<a href="javascript:void(0);" > 
+											<img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.logo" alt="">
+											<span class="dsgname" ms-text="el.name"></span>
+											<span ms-visible="el.status==1" class="status">(空闲)</span>
+											<span ms-visible="el.status==2" class="status">(离线)</span>
+											<span ms-visible="el.status==3" class="status">(繁忙)</span>
+										</a>
+										<span class="dsg_sales">月销量 <span ms-text="el.total_order"></span>
+									</div>
+									<div class="dsg_prize">￥<span ms-text="designerPrice.graphic"></span>元/页</div>
+									<div class="cb"></div>
+									<a ms-attr-href="tencent://message/?uin={{el.qq}}&site=qq&menu=yes" class="btn_bd_orange2"  ms-click="sendCollect(3)" target="_top">在线咨询</a>
+									<!-- 20160615去掉	
+									<div ms-attr-id="dgrEmploy_1{{$index}}" class="btnc" style="display:block"><a href="javascript:void(0);" class="btn_hire">雇佣TA</a></div>
+									<div ms-attr-id="dgrEmploy_2{{$index}}" class="btnc">
+										<a ms-attr-href="tencent://message/?uin={{el.qq}}&site=qq&menu=yes" class="btn_orange"  ms-click="sendCollect(3)" target="_top">洽谈需求</a>
+										<a ms-click="customPay(el.id)"  ms-click-2="sendCollect(4)" href="javascript:void(0);" class="btn_bd_orange" target="_top">支付佣金</a>
+									</div>
+									-->
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 设计师  end -->
+		</div>
+		<!-- 平面设计 内容展示 end -->
+
+		<!-- 切换设计效果 -->
+		<!-- WPS -->
+		<div class="cst_banner cst_banner1" ms-if="designerTag=='word'" style="display:block;">
+			<span class="cst_turn_top"></span>
+			<!-- <p class="ctt_text">4.10日前买满500元赠送小米手环！<a target="_blank" href="http://bbs.wps.cn/thread-22463138-1-1.html">详情</a></p> -->
+			<div class="cst_turn" ms-mouseenter="stopBannerAutoMove" ms-mouseleave="bannerAutoMove">
+				<ul class="cst_turn_ul" id="cstTurnUl_word">
+					<li><img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wps/1.png" class="stu_img"></li>
+					<li><img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wps/2.png" class="stu_img"></li>
+					<li><img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wps/3.png" class="stu_img"></li>
+					<li><img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wps/4.png" class="stu_img"></li>
+					<li><img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wps/5.png" class="stu_img"></li>
+					<li><img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wps/6.png" class="stu_img"></li>
+					<li><img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wps/7.png" class="stu_img"></li>
+					<li><img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wps/8.png" class="stu_img"></li>
+					<li><img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wps/9.png" class="stu_img"></li>
+					<li><img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wps/10.png" class="stu_img"></li>
+				</ul>
+				<a href="javascript:void(0)" class="cst_turn_left2" id="resumePrev" ms-click="clickResumePage(-1)"></a>
+				<a href="javascript:void(0)" class="cst_turn_right2" id="resumeNext" ms-click="clickResumePage(1)"></a>
+			</div>
+			<ul class="cst_turn_dot" ms-click="clickBannerIndex">
+				<li><a ms-class="active:bannerIndex===0" href="javascript:void(0)" bannerIndex="0"></a></li>
+				<li><a ms-class="active:bannerIndex===1" href="javascript:void(0)" bannerIndex="1"></a></li>
+				<li><a ms-class="active:bannerIndex===2" href="javascript:void(0)" bannerIndex="2"></a></li>
+				<li><a ms-class="active:bannerIndex===3" href="javascript:void(0)" bannerIndex="3"></a></li>
+				<li><a ms-class="active:bannerIndex===4" href="javascript:void(0)" bannerIndex="4"></a></li>
+				<li><a ms-class="active:bannerIndex===5" href="javascript:void(0)" bannerIndex="5"></a></li>
+				<li><a ms-class="active:bannerIndex===6" href="javascript:void(0)" bannerIndex="6"></a></li>
+				<li><a ms-class="active:bannerIndex===7" href="javascript:void(0)" bannerIndex="7"></a></li>
+				<li><a ms-class="active:bannerIndex===8" href="javascript:void(0)" bannerIndex="8"></a></li>
+				<li><a ms-class="active:bannerIndex===9" href="javascript:void(0)" bannerIndex="9"></a></li>
+			</ul>
+		</div>
+		<!-- WPP -->
+		<div class="cst_banner cst_banner3" ms-if="designerTag=='ppt'" style="display:block;">
+			<span class="cst_turn_top cst_turn_top3"></span>
+			<div class="cst_turn cst_turn3" ms-mouseenter="stopBannerAutoMove" ms-mouseleave="bannerAutoMove">
+				<div class="bgt"></div> 
+				<div class="bgc">
+					<ul class="cst_turn_ul" id="cstTurnUl_ppt">
+						<li>
+							<img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wpp/801.jpg" class="stu_img" style="display: block;">
+							<img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wpp/802.jpg?v=20160620" class="stu_img" style="display: none;">
+							<img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wpp/803.jpg?v=20160620" class="stu_img" style="display: none;">
+							<img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wpp/804.jpg?v=20160620" class="stu_img" style="display: none;">
+							<img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wpp/805.jpg?v=20160620" class="stu_img" style="display: none;">
+							<img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wpp/806.jpg?v=20160620" class="stu_img" style="display: none;">
+							<img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wpp/807.jpg?v=20160620" class="stu_img" style="display: none;">
+							<img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wpp/808.jpg?v=20160620" class="stu_img" style="display: none;">
+							<img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wpp/809.jpg?v=20160620" class="stu_img" style="display: none;">
+							<img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wpp/810.jpg?v=20160620" class="stu_img" style="display: none;">
+							<img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wpp/811.jpg?v=20160620" class="stu_img" style="display: none;">
+							<img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wpp/812.jpg?v=20160620" class="stu_img" style="display: none;">
+							<img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wpp/813.jpg?v=20160620" class="stu_img" style="display: none;">
+						</li>
+					</ul>
+					<a href="#" class="cst_turn_left" id="prevBtn" ms-click="clickPrevBtn"></a>
+					<a href="#" class="cst_turn_right" id="nextBtn" ms-click="clickNextBtn"></a>
+				</div>
+				<div class="bgb"></div>
+				
+			</div>
+			<!-- <ul class="cst_turn_dot cst_turn_dot3" ms-click="clickBannerIndex">
+				<li><a ms-class="active:bannerIndex===0" href="javascript:void(0)" bannerIndex="0">形象展示</a></li>
+				<li><a ms-class="active:bannerIndex===1" href="javascript:void(0)" bannerIndex="1">报告总结</a></li>
+				<li><a ms-class="active:bannerIndex===2" href="javascript:void(0)" bannerIndex="2">深度美化</a></li>
+			</ul> -->
+		</div>
+		<!-- ET -->
+		<div class="cst_banner cst_banner2" ms-if="designerTag=='et'" style="display:block;">
+			<span class="cst_turn_top cst_turn_top2"></span>
+			<div class="cst_turn cst_turn2" ms-mouseenter="stopBannerAutoMove" ms-mouseleave="bannerAutoMove">
+				<ul class="cst_turn_ul" id="cstTurnUl_et" style="width:4320px">
+					<li><img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/et/banner4.jpg" class="stu_img"></li>
+					<li><img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/et/banner5.jpg" class="stu_img"></li>
+					<li><img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/et/banner6.jpg" class="stu_img"></li>
+					<li><img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/et/banner7.jpg" class="stu_img"></li>
+				</ul>
+			</div>
+			<ul class="cst_turn_dot cst_turn_dot2" ms-click="clickBannerIndex">
+				<li><a ms-class="active:bannerIndex===0" href="javascript:void(0)" bannerIndex="0">信息图表</a></li>
+				<li><a ms-class="active:bannerIndex===1" href="javascript:void(0)" bannerIndex="1">进销存报表</a></li>
+				<li><a ms-class="active:bannerIndex===2" href="javascript:void(0)" bannerIndex="2">贷款还款计算器</a></li>
+				<li><a ms-class="active:bannerIndex===3" href="javascript:void(0)" bannerIndex="3">BI销售业绩表</a></li>
+			</ul>
+		</div>
+		<!-- 切换设计效果 -->
+
+		<!-- 14、定制页通栏广告位-->
+		<div class="addiv_14">
+			定制页面顶部通栏广告 <br/>可配置多个广告图轮播<br/>后台提供排序设置，由排序数值决定展示顺序
+		</div>
+
+		<!-- 定制流程 -->
+		<div class="csm_flow">
+			<h3>定制流程</h3>
+			<ul class="flowlist clearfix">
+				<li class="flowimg_1"><p>沟通设计需求，双方<br/>确定服务价格并支付</p></li>
+				<li class="arrow"></li>
+				<li class="flowimg_2"><p>提交文稿或图文资料<br/>给选定的设计师</p></li>
+				<li class="arrow"></li>
+				<li class="flowimg_3"><p>一对一沟通，优势提炼，<br/>为您量身定做</p></li>
+				<li class="arrow"></li>
+				<li class="flowimg_4"><p>修改满意后，接收文档，<br/>交易成功</p></li>
+			</ul>
+			<p class="notetxt">
+				<span class="spanw">
+				我们为您提供从<strong>内容梳理、提炼优势、逻辑表达、数据展示、VI / 文案设计</strong>等， 从最大程度帮助您更清晰准确的传达信息，为你提升展示效果，让每一场演示更打动人心。
+				</span>
+			</p>
+			<!-- a href="javascript:void(0)" ms-click="goCustomCase()" class="btn_viewcase">查看定制案例</a -->
+		</div>
+		<!-- 定制流程 end -->
+
+		<!-- 招募设计师 -->
+		<div class="dsg_recruit">
+			<div class="txtpos">
+				<h3>设计师招募</h3>
+				<p class="adtxt">稻壳儿提供自由的接单平台，帮助设计师们实现技能增值</p>
+				<ul>
+					<li>
+						<p><strong>810位</strong><span>设计师</span></p>
+					</li>
+					<li>
+						<p><strong>20M  部</strong><span>销售作品</span></p>
+					</li>
+					<li>
+						<p><strong>10M+</strong><span>创收总额</span></p>
+					</li>
+				</ul>
+				<a href="tencent://message/?uin=2853732716&site=qq&menu=yes" class="btn_join" target="_top">欢迎加入</a>
+				<p class="contact_txt"><span>QQ: <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2853732716&amp;site=qq&amp;menu=yes" class="qqlink qqlink_gray"  id="vipServiceTipButton"  target="_top">2853732716</a></span> <span>Email: <a href="mailto:docer@wps.cn" target="_top">docer@wps.cn</a></span> <span>行动电话: 0756-3335688-2657</span></p>
+			</div>
+		</div>
+		<!-- 招募设计师 end -->
+	</div>
+	<!-- 定制首页 end  -->
+
+	<!-- 设计师详情页 -->
+	<div style="display:none;"  ms-visible="showMe" ms-controller="customDesignerCtrl">
+		<div class="scnav"><span><a ms-click="backIndex()" href="javascript:void(0)">定制首页</a></span> <span class="sarrow">&nbsp;</span> <span>设计师</span></div>
+		<div class="custom_layout">
+			<!-- banner -->
+			<!-- 先注释 ms-css-background="url({{designerInfo.cover_img}})" -->
+			<div class="dsg_banner"  >
+				 <div class="dsgimg_dt">
+				 	<img ms-if="designerInfo.logo" ms-attr-src="designerInfo.logo" alt="">
+				 	<!-- icon_online在线 icon_offline离线 icon_busy繁忙 -->
+				 	<span ms-visible="designerInfo.status==1" class="icon_online"></span>
+					<span ms-visible="designerInfo.status==2" class="icon_offline"></span>
+					<span ms-visible="designerInfo.status==3" class="icon_busy"></span>
+			 	 </div>
+				 <div class="dsgname" ms-text="designerInfo.name"></div>
+				 <div class="dsgint">{{designerInfo.desc?designerInfo.desc.replace(/<[^>]+>/g,""):""}}</div>
+				 <div class="btnc">
+				 	<a ms-attr-href="tencent://message/?uin={{designerInfo.qq}}&site=qq&menu=yes" class="btn_orange" ms-click="sendCollect(7)"  target="_top">洽谈需求</a> 
+				 	<a ms-click="customPay(designerInfo.id)" ms-click-2="sendCollect(8)" href="javascript:void(0)" class="btn_bd_orange"  target="_top">支付佣金</a>
+			 	</div>
+			</div>
+			<!-- banner end -->
+
+			<!-- 内容展示  -->
+			<div class="custom_con">
+				<!-- 案例、作品 -->
+				<div class="dsgcase clearfix" ms-visible="caseData.length">
+					<h3 class="tl">案例/作品</h3>
+					<!--wpslist etlist wpplish-->
+				 	<ul class="temlist"
+				 	 ms-class="wpslist:designerTag=='word'"
+				 	 ms-class-2="wpplist:designerTag=='ppt'"
+				 	 ms-class-3="etlist:designerTag=='et'">
+				 		<li ms-repeat="caseData" ms-visible="$index<hideMaxNum" ms-click="preview($index,el.id,el.author_id)" ms-click-2="sendCollect(9)">
+							<div class="mbbg_h" >
+								<a href="javascript:void(0)" class="mbbg">
+									<span class="imgbdline">
+										<span class="imgloading" title="加载中..." style="display: ;"></span>
+										<span class="imgloading_error" title="加载失败">加载失败</span>
+										<img ms-attr-src="el.cover_img" alt="">
+									</span>
+								</a>
+							</div>
+							<a class="temname" href="javascript:void(0)" ms-text="el.title"></a>
+							<div class="mbover">
+								<a style="display:none;" href="javascript:void(0)" class="mb_share" title="分享">分享</a>
+							</div>
+						</li>
+				 	</ul>
+				</div>
+				<!-- 案例、作品 end -->
+				<!-- 评价记录 -->
+				<div class="dsg_comment">
+					<div class="tabbar clearfix">
+						<li><a ms-click="set_select_type('select_type','evaluation')" ms-click-2="sendCollect(11)" href="javascript:void(0)" ms-class="active:select_type=='evaluation'">服务评价(<span>{{baseData.every_total.all_eva}}</span>)</a></li>
+						<li><a ms-click="set_select_type('select_type','order')" ms-click-2="sendCollect(12)" href="javascript:void(0)" ms-class="active:select_type=='order'">交易记录(<span>{{baseData.every_total.order}}</span>)</a></li>
+					</div>
+					<!-- 服务评价 -->
+					<div ms-visible="select_type=='evaluation'" class="works_shop_evaluation">
+						<div class="wse_score">
+							<span class="red"><strong>{{baseData.every_total.rate!=-1?baseData.every_total.rate:""}}</strong>{{baseData.every_total.rate!=-1?"%":"-"}}</span>好评率
+						</div>
+						<div class="wse_score_list">
+							<p>作品品质：{{baseData.score.quality!=0?"":"暂无评分"}}
+								<span class="wsl_score">{{baseData.score.quality!=0?""+baseData.score.quality+"分":""}}</span>
+								<span ms-visible="baseData.score.quality>0" ms-class="{{avg_class(baseData.score.quality_scale,1)}}">{{avg_txt(baseData.score.quality_scale)}}</span>
+								<span ms-visible="baseData.score.quality>0&&baseData.score.quality_scale!=0" ms-class="{{avg_class(baseData.score.quality_scale,2)}}">{{baseData.score.quality_scale?baseData.score.quality_scale.replace("-",""):''}}%</span>
+								<span ms-visible="baseData.score.quality>0&&baseData.score.quality_scale!=0" ms-class="{{avg_class(baseData.score.quality_scale,3)}}"></span>
+							</p>
+							<p>交稿速度：{{baseData.score.rtime!=0?"":"暂无评分"}}
+								<span class="wsl_score">{{baseData.score.rtime!=0?""+baseData.score.rtime+"分":""}}</span>
+								<span ms-visible="baseData.score.rtime>0" ms-class="{{avg_class(baseData.score.rtime_scale,1)}}">{{avg_txt(baseData.score.rtime_scale)}}</span>
+								<span ms-visible="baseData.score.rtime>0&&baseData.score.rtime_scale!=0" ms-class="{{avg_class(baseData.score.rtime_scale,2)}}">{{baseData.score.rtime_scale?baseData.score.rtime_scale.replace("-",""):''}}%</span>
+								<span ms-visible="baseData.score.rtime>0&&baseData.score.rtime_scale!=0" ms-class="{{avg_class(baseData.score.rtime_scale,3)}}"></span>
+							</p>
+							<p>服务态度：{{baseData.score.attitude!=0?"":"暂无评分"}}
+								<span class="wsl_score">{{baseData.score.attitude!=0?""+baseData.score.attitude+"分":""}}</span>
+								<span ms-visible="baseData.score.attitude>0" ms-class="{{avg_class(baseData.score.attitude_scale,1)}}">{{avg_txt(baseData.score.attitude_scale)}}</span>
+								<span ms-visible="baseData.score.attitude>0&&baseData.score.attitude_scale!=0" ms-class="{{avg_class(baseData.score.attitude_scale,2)}}">{{baseData.score.attitude_scale?baseData.score.attitude_scale.replace("-",""):''}}%</span>
+								<span ms-visible="baseData.score.attitude>0&&baseData.score.attitude_scale!=0" ms-class="{{avg_class(baseData.score.attitude_scale,3)}}"></span>
+							</p>
+						</div>
+						<div class="wse_feel" ms-visible="baseData.impress&&baseData.impress.length">
+							<h3 class="wse_feel_h3">印<br>象<br>墙</h3>
+							<ul class="wse_feel_ul">
+								<li ms-repeat-el="baseData.impress"><a href="javascript:void(0)">{{el.impress}}（{{el.num}}）</a></li>
+							</ul>
+						</div>
+						<div class="cb"></div>
+						<div class="wse_evaluation">
+							<ul class="wse_evaluation_ul">
+								<li><a ms-click="set_query_mark('evaluation','all')" href="javascript:void(0);" ms-class="active:queryMark=='all'">全部评价<span class="gray">（{{baseData.every_total.all_eva}}）</span></a></li>
+								<li><a ms-click="set_query_mark('evaluation','best')" href="javascript:void(0);" ms-class="active:queryMark=='best'">好评<span class="gray">（{{baseData.every_total.best_eva}}）</span></a></li>
+								<li><a ms-click="set_query_mark('evaluation','mid')" href="javascript:void(0);" ms-class="active:queryMark=='mid'">中评<span class="gray">（{{baseData.every_total.mid_eva}}）</span></a></li>
+								<li><a ms-click="set_query_mark('evaluation','bad')" href="javascript:void(0);" ms-class="active:queryMark=='bad'">差评<span class="gray">（{{baseData.every_total.bad_eva}}）</span></a></li>
+							</ul>
+							<div class="wse_evaluation_table_div">
+								<table class="wse_evaluation_table">
+									<thead>
+										<tr>
+											<th class="th1" class="wse_content_text">内容</th>
+											<th class="th2">评分</th>
+											<th class="th3">用户</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!-- 两个tr为一个循环 begion-->
+										<tr ms-repeat-ev="shopData.evaluation">
+											<td ms-if="ev.isreply" colspan="3" class="vet_reply">
+												<div class="vet_reply_div" ms-visible="ev.reply">
+													<span class="red" >设计师回复：</span>{{ev.reply}}
+												</div>
+											</td>
+											<td class="vet_content" ms-if="!ev.isreply">
+												<p class="vet_text">{{ev.content}}</p>
+												<ul class="wse_feel_ul" ms-visible="ev.impress&&ev.impress.length">
+													<li ms-repeat-imp="ev.impress"><a href="javascript:void(0);" >{{imp.impress}}</a></li>
+												</ul>
+												<p class="vet_time">{{ev.ctime}}</p>
+											</td>
+											<td ms-if="!ev.isreply">
+												<p class="vet_star">
+													品质：
+													<span class="vet_star_gray " ms-class="vet_star_light:ev.quality>=ell" ms-repeat-ell="arrayFive"></span>
+												</p>
+												<p class="vet_star">
+													速度：
+													<span class="vet_star_gray " ms-class="vet_star_light:ev.rtime>=ell" ms-repeat-ell="arrayFive"></span>
+												</p>
+												<p class="vet_star">
+													态度：
+													<span class="vet_star_gray " ms-class="vet_star_light:ev.attitude>=ell" ms-repeat-ell="arrayFive"></span>
+												</p>
+											</td>
+											<td ms-if="!ev.isreply">
+												{{ev.username}}
+											</td>								
+										</tr>
+										<tr style="display: none;" ms-visible="(!shopData.evaluation.length&&!loading)">
+											<td colspan="3">暂无评论数据</td>
+										</tr>
+										<!-- 两个tr为一个循环 end-->
+									</tbody>	
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- 服务评价 end -->
+
+					<!-- 交易记录 ms-visible="check_select_type('order')"-->
+					<div ms-visible="select_type=='order'" class="works_shop_success">
+						<table class="works_shop_success_table">
+							<thead>
+								<tr>
+									<th width="40%">客户</th>
+									<th width="15%">需求</th>
+									<th width="15%">成交价格（元）</th>
+									<th width="20%">成交时间</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ms-repeat-order="shopData.order">
+									<td>{{order.username}}</td>
+									<td>{{order.product_name}}</td>
+									<td>{{order.total_fee}}</td>
+									<td>{{order.ctime}}</td>
+								</tr>
+								<tr style="display:block" ms-visible="(!shopData.order.length&&!loading)">
+								  <td colspan="4" align="center"  class="nolist">暂无成交记录数据</td>
+							  </tr>
+							</tbody>
+						</table>
+	    			</div>
+					<!-- 交易记录 end -->
+
+					<!--分页控件 begion-->
+					<div class="pagebar" ms-visible="!loading&&select_type=='evaluation'&&shopData.evaluation.length" style="display:block;">
+						<div class="sum">共<strong ms-text="page_evaluation.totalNum"></strong>个</div>
+						<div class="paging">
+							<span>
+								<strong ms-text="page_evaluation.pageIndex">2</strong>/&nbsp;
+								<strong ms-text="page_evaluation.totalCount"></strong>
+							</span>
+							<a class="nofollow" ms-click="pageRankPrev('page_evaluation')" ms-visible="page_evaluation.pageIndex>1" href="javascript:void(0);">上一页</a>
+		                    <a class="nofollow" ms-click="pageRankNext('page_evaluation')" ms-visible="page_evaluation.pageIndex<page_evaluation.totalCount" href="javascript:void(0);">下一页</a>
+		                    <div class="pagebar_go">
+								转到第<input type="text" class="pagebar_go_input" ms-duplex="page_evaluation.pageNumber">页
+								<a href="javascript:void(0)" class="pagebar_go_btn" ms-click="gotoPageNumber('page_evaluation')">跳转</a>
+							</div>
+						</div>
+					</div>
+					<!-- 分页 end -->
+					<!--分页控件 begion-->
+					<div class="pagebar" ms-visible="!loading&&select_type=='order'&&shopData.order.length" style="display:block;">
+						<div class="sum">共<strong ms-text="page_order.totalNum"></strong>个</div>
+						<div class="paging">
+							<span>
+								<strong ms-text="page_order.pageIndex">2</strong>/&nbsp;
+								<strong ms-text="page_order.totalCount"></strong>
+							</span>
+							<a class="nofollow" ms-click="pageRankPrev('page_order')" ms-visible="page_order.pageIndex>1" href="javascript:void(0);">上一页</a>
+		                    <a class="nofollow" ms-click="pageRankNext('page_order')" ms-visible="page_order.pageIndex<page_order.totalCount" href="javascript:void(0);">下一页</a>
+		                    <div class="pagebar_go">
+								转到第<input type="text" class="pagebar_go_input" ms-duplex="page_order.pageNumber">页
+								<a href="javascript:void(0)" class="pagebar_go_btn" ms-click="gotoPageNumber('page_order')">跳转</a>
+							</div>
+						</div>
+					</div>
+					<!-- 分页 end -->
+
+				</div>
+				<!-- 评价记录 end -->	
+			</div>
+			<!-- 内容展示 end -->
+
+			<!-- 定制流程 -->
+			<div class="csm_flow">
+				<h3>定制流程</h3>
+				<p class="flowimg"></p>
+				<ul class="flowlist clearfix">
+					<li class="flowimg_1"><p>沟通设计需求，双方<br/>确定服务价格并支付</p></li>
+					<li class="arrow"></li>
+					<li class="flowimg_2"><p>提交文稿或图文资料<br/>给选定的设计师</p></li>
+					<li class="arrow"></li>
+					<li class="flowimg_3"><p>一对一沟通，优势提炼，<br/>为您量身定做</p></li>
+					<li class="arrow"></li>
+					<li class="flowimg_4"><p>修改满意后，接收文档，<br/>交易成功</p></li>
+				</ul>
+				<p class="notetxt">
+					<span class="spanw">
+					我们为您提供从<strong>内容梳理、提炼优势、逻辑表达、数据展示、VI / 文案设计</strong>等， 从最大程度帮助您更清晰准确的传达信息，为你提升展示效果，让每一场演示更打动人心。
+					</span>
+				</p>
+				<a ms-click="goCustomCase()" href="javascript:void(0)" class="btn_viewcase">查看定制案例</a>
+			</div>
+			<!-- 定制流程 end -->
+		</div>
+	</div>
+	<!-- 设计师详情页 end -->
+
+	<!-- 定制表单 -->
+	<div style="display:none;" ms-visible="showMe&&payState==0"  ms-controller="customOnekeyCtrl">
+		<div class="scnav"><span><a ms-click="backIndex()" href="javascript:void(0)">定制首页</a></span> <span class="sarrow">&nbsp;</span> <span>发布需求</span></div>
+		<div class="custom_layout">
+			<div class="form_con clearfix">
+				<!-- 表单左边内容 -->
+				<div class="form_left">
+					<div class="form_pd">
+						<!-- 切换不同的类型图标  -->
+						<h4 class="tl">定制类型 <span class="req_star">（*必填）</span></h4>
+						<div class="conp">
+							<ul class="typelist">
+								<li ms-class="active:designerTag=='word'" ms-click="setDesignerTag('word')" class="active"><a href="javascript:void(0)" class="type_wps">个性简历<span></span></a></li>
+								<li ms-class="active:designerTag=='ppt'" ms-click="setDesignerTag('ppt')"><a href="javascript:void(0)" class="type_wpp">演示PPT<span></span></a></li>
+								<li ms-class="active:designerTag=='et'" ms-click="setDesignerTag('et')"><a href="javascript:void(0)" class="type_et">数据表格<span></span></a></li>
+							</ul>
+						</div>
+
+						<!-- 切换不同的类型 定制 开始  -->
+						<!-- 文字定制 -->  
+						<div class="form_wps" ms-visible="designerTag=='word'">
+							<h4 class="tl">您是？ <span class="req_star">（*必填）</span></h3>
+							<div class="conp">
+								<ul class="temstyle clearfix">
+									<li ms-repeat="baseData.occupation"><a ms-click="choose('occupation',el)" ms-class="active:data.occupation==el" href="javascript:void(0)" ms-text="el"></a></li>
+								</ul>
+							</div>
+
+							<h4 class="tl"> 上传简历  <span class="smalltxt">( 请先 <span class="orangetxt"><a href="javascript:void(0);" ms-click="openlink('http://img1.template.cache.wps.cn/wps/cdnwps/upload/official/template/2012-3-30/4f75ab999f725.wpt')">下载简历范例</a></span>，填写后上传，已有word简历请直接上传哟~ )</span>  <span class="req_star">（*必填）</span></h4>
+							<div class="conp">
+								<div class="conp_bd">
+									<div class="uploadbg">
+										<!-- 上传按扭 -->
+										<div ms-visible="!data.fileUrl&&!process&&!fileError" class="uploa_con">
+											<div class="btn_upload" title="立即上传"  id="idUploadFile">立即上传</div>
+											<span class="uploadtxt">最多1个附件，文件请小于50M，支持Word,PPT,JPG,RAR,ZIP</span>
+										</div>
+										<!-- 上传中 -->
+										<div  ms-visible="process" class="uploa_con">
+											<!-- <div class="icon_type_wps"></div> -->
+											<div class="casediv">
+												<h5 class="cname" ms-text="data.fileName"></h5>
+												<div class="progressbar">
+													<div class="greenbg" ms-css-width="{{process}}%"></div>
+												</div>
+											</div>
+											<div class="progresstxt">上传进度:{{process}}%</div>
+										</div>
+										<!-- 上传完成 -->
+										<div ms-visible="data.fileUrl&&!process&&!fileError" class="uploa_con">
+											<!-- <div class="icon_type_wps"></div> -->
+											<div class="casediv2">
+												<h5 ms-text="data.fileName"></h5>
+												<!-- <p class="greentxt"><span>5.9</span>M</p> -->
+											</div>
+											<div class="upload_a">
+												<div id="idUploadFile2" href="javascript:void(0);">重新上传</div> 
+												<a ms-visible="data.fileUrl" ms-click="setValue('data.fileUrl','')" href="javascript:void(0);"  class="upload_del"> 删除</a>
+											</div>
+										</div>
+										<!-- 上传失败 -->
+										<div class="uploa_con" ms-visible="fileError">
+											<div class="icon_uploaderr"></div>
+											<div class="casediv_err">
+												<h5>上传失败</h5>
+												<p>{{fileError}}</p>
+											</div>
+											<div class="upload_a_err"><div id="idUploadFile7" href="javascript:void(0);">重新上传</div>  </div>
+										</div>
+
+									</div>
+								 
+							</div>	
+								<!-- 制作要求 -->
+								<dl class="intslist" ms-visible="data.fileUrl">
+									<dt>制作需求：</dt>
+									<dd ms-click="setValue('data.price',68)">
+										<input type="radio" name="word" value="68" ms-attr-checked="data.price==68">
+										<label for="">
+											<strong>68<span>元</span></strong><span>模板设计、内容排版、样式美化  </span><span class="orangebg"><span class="arrow"></span>应届生首选</span>
+										</label>
+									</dd>
+									<dd ms-click="setValue('data.price',168)">
+										<input type="radio" name="word" value="168" ms-attr-checked="data.price==168">
+										<label for="">
+											<strong>168<span>元</span></strong><span>内容梳理、突出优势、排版美化并针对目标岗位展现自我</span><span class="orangebg"><span class="arrow"></span>跳槽首选</span>
+										</label>
+									</dd>
+								</dl>	
+							</div>
+	 
+							<h4 class="tl">如何联系您 <span class="req_star">（*必填）</span></h4>
+							<div class="conp">
+								<ul class="contactway">
+									<li>
+										<label for="">手机：</label>
+										<input ms-duplex="data.tel" maxlength="11"  type="input" placeholder="沟通需求">
+										<span ms-visible="data.tel&&checkPhone(data.tel)" class="greenwarn"></span>										
+										<span ms-visible="checkState&&!data.tel" class="redwarn">请填写！</span>
+										<span ms-visible="!checkPhone(data.tel)" class="redwarn">错误</span>
+									</li>
+									<li>
+										<label for="">邮箱：</label>
+										<input ms-duplex="data.email" maxlength="60"  type="input" placeholder="接收作品或通知">
+										<span ms-visible="data.email&&checkEmail(data.email)" class="greenwarn"></span>
+										<span ms-visible="checkState&&!data.email" class="redwarn">请填写！</span>
+										<span ms-visible="!checkEmail(data.email)" class="redwarn">错误</span>
+									</li>
+									<li>
+										<label for="">Q Q：</label>
+										<input ms-duplex="data.qq" maxlength="40"  type="input" placeholder="稻壳设计师将通过QQ与您联系">
+										<span ms-visible="data.qq&&data.qq.length>4" class="greenwarn"></span>
+										<span ms-visible="checkState&&!data.qq" class="redwarn">请填写！</span>
+										<span ms-visible="checkState&&data.qq&&data.qq.length<5" class="redwarn">错误</span>
+									</li>
+								</ul>
+							</div>
+							<div class="morecase" ms-visible="!showMoreInfo" ms-click="setValue('showMoreInfo',!showMoreInfo)"><a href="javascript:void(0)"  class="more">更多设计要求</a></div>
+
+							<!-- 默认隐藏 点击展开 -->
+							<div class="hiddencon" ms-visible="showMoreInfo">
+								<h4 class="tl">制作格式</h4>
+								<div class="conp">
+									<ul class="temstyle clearfix">
+										<li ms-click="setValue('data.fileForm','WORD')"><a ms-class="active:data.fileForm=='WORD'" href="javascript:void(0)">WORD</a></li>
+										<li ms-click="setValue('data.fileForm','PDF')"><a ms-class="active:data.fileForm=='PDF'" href="javascript:void(0)">PDF</a></li>
+									</ul>
+								</div>
+
+								<h4 class="tl">希望完成时间 <span class="req_star">（*必填）</span></h4>
+								<div class="conp">
+									<div class="datebar">
+										<div class="fl">
+											<input clazz="date" class="input_date" placeholder="选择完成周期" readonly="readonly" ms-duplex="data.date" />
+										</div>
+										<div class="fl">
+											<span ms-visible="data.date" class="greenwarn"></span>
+											<span ms-visible="checkState&&!data.date" class="redwarn">请填写！</span>
+										</div>
+									</div>									
+									<a ms-class="acheckboxed:data.is_urgent" ms-click="setValue('data.is_urgent',!data.is_urgent)" href="javascript:void(0)" class="acheckbox">为我加急</a><span class="graytxt">设计师将额外收取 20% 加急费</span>
+								</div>
+							</div>	
+						</div>
+
+						<!-- 演示定制 -->  
+						<div class="form_wpp" ms-visible="designerTag=='ppt'">
+							<h4 class="tl">请您一句话概括需求 <span class="req_star">（*必填）</span></h3>
+							<div class="conp">
+								<input ms-duplex="data.content" type="input" class="input1" placeholder="例如：我要定制一份开展商务合作的PPT"><span class="i_posr"><span ms-visible="data.content" class="greenwarn"></span></span>
+								<span ms-visible="checkState&&!data.content" class="redwarn">请填写！</span>
+							</div>
+							<h4 class="tl"> 需求详情 <span class="req_star">（*必填）</span> <a href="javascript:void(0);" class="fileicon" ms-click="setValue('showCustomCase',true)">怎么写？</a></h4>
+							<div class="conp">
+								<p>
+									<textarea  ms-duplex="data.detail" class="textarea1" placeholder="请说明您定制的内容及设计风格。"></textarea><span class="i_posr2"><span ms-visible="data.detail" class="greenwarn"></span></span>
+									<span ms-visible="checkState&&!data.detail" class="redwarn">请填写！</span>
+								</p>
+								<div class="uploadbg">
+									<!-- 上传按扭 -->
+									<div ms-visible="!data.fileUrl&&!process&&!fileError" class="uploa_con">
+										<div class="btn_upload" title="立即上传"  id="idUploadFile3">立即上传</div>
+										<span class="uploadtxt">最多1个附件，文件请小于50M，支持Word,PPT,JPG,RAR,ZIP</span>
+									</div>
+									
+									<!-- 上传中 -->
+									<div  ms-visible="process" class="uploa_con">
+										<!-- <div class="icon_type_wps"></div> -->
+										<div class="casediv">
+											<h5 class="cname" ms-text="data.fileName"></h5>
+											<div class="progressbar">
+												<div class="greenbg" ms-css-width="{{process}}%"></div>
+											</div>
+										</div>
+										<div class="progresstxt">上传进度:{{process}}%</div>
+									</div>
+									<!-- 上传完成 -->
+									<div ms-visible="data.fileUrl&&!process&&!fileError" class="uploa_con">
+										<!-- <div class="icon_type_wps"></div> -->
+										<div class="casediv2">
+											<h5 ms-text="data.fileName"></h5>
+											<!-- <p class="greentxt"><span>5.9</span>M</p> -->
+										</div>
+										<div class="upload_a">
+											<div id="idUploadFile4" href="javascript:void(0);">重新上传</div> 
+											<a ms-visible="data.fileUrl" ms-click="setValue('data.fileUrl','')" href="javascript:void(0);" class="upload_del"> 删除</a>
+										</div>
+									</div>
+									<!-- 上传失败 -->
+									<div class="uploa_con" ms-visible="fileError">
+										<div class="icon_uploaderr"></div>
+										<div class="casediv_err">
+											<h5>上传失败</h5>
+											<p>{{fileError}}</p>
+										</div>
+										<div class="upload_a_err"><div id="idUploadFile8" href="javascript:void(0);">重新上传</div>  </div>
+									</div>
+								</div>
+							</div>
+							<h4 class="tl">制作预算 <span class="req_star">（*必填）</span> </h4>
+							<div class="conp clearfix">
+								<div class="fl posr">
+									<input ms-duplex="data.price" maxlength="6" type="tel" class="input2" placeholder="输入金额">&nbsp;&nbsp;元 &nbsp;&nbsp;<a ms-click="goCustomPrice()" href="javascript:void(0);" class="bluelink">关于资费？</a> <br />
+									<div class="tips_budget" ms-visible="data.price&&checkPrice(data.price)&&data.price<300"> 一分钱一分货，合理的预算能促使设计师更积极的联系您，建议最低金额为300元。 </div>
+									<div class="howwrite" style="display:none;">
+										<dl>
+											<dt>各设计师最低匹配标准：</dt>
+											<dd>￥50  起 / 页  （高级）</dd>
+											<dd>￥200 起 / 页 （专业级）</dd>
+											<dd>￥500 起 / 页 （特聘级）</dd>
+										</dl>
+										<p>24 小时内为您安排设计师，售后7个工作日内免费修改，完美解决您的后顾之忧！</p>
+									</div>
+								</div>
+								<div class="fl">
+									<span ms-visible="data.price&&checkPrice(data.price)" class="greenwarn"></span>
+									<span ms-visible="checkState&&!data.price" class="redwarn">请填写！</span>
+									<span ms-visible="data.price&&!checkPrice(data.price)" class="redwarn">错误</span>
+								</div>
+								
+							</div>
+							<h4 class="tl">如何联系您 <span class="req_star">（*必填）</span> </h4>
+							<div class="conp">
+								<ul class="contactway">
+									<li>
+										<label for="">手机：</label>
+										<input ms-duplex="data.tel" maxlength="11"  type="input" placeholder="沟通需求">
+										<span ms-visible="data.tel&&checkPhone(data.tel)" class="greenwarn"></span>										
+										<span ms-visible="checkState&&!data.tel" class="redwarn">请填写！</span>
+										<span ms-visible="!checkPhone(data.tel)" class="redwarn">错误</span>
+									</li>
+									<li>
+										<label for="">邮箱：</label>
+										<input ms-duplex="data.email" maxlength="60"  type="input" placeholder="接收作品或通知">
+										<span ms-visible="data.email&&checkEmail(data.email)" class="greenwarn"></span>
+										<span ms-visible="checkState&&!data.email" class="redwarn">请填写！</span>
+										<span ms-visible="!checkEmail(data.email)" class="redwarn">错误</span>
+									</li>
+									<li>
+										<label for="">Q Q：</label>
+										<input ms-duplex="data.qq" maxlength="40"  type="input" placeholder="稻壳设计师将通过QQ与您联系">
+										<span ms-visible="data.qq&&data.qq.length>4" class="greenwarn"></span>
+										<span ms-visible="checkState&&!data.qq" class="redwarn">请填写！</span>
+										<span ms-visible="checkState&&data.qq&&data.qq.length<5" class="redwarn">错误</span>
+									</li>
+								</ul>
+							</div>
+							<h4 class="tl">您可能还需要</h4>
+							<div class="conp">
+								<!-- 选中用acheckbox  -->
+								<a ms-class="acheckboxed:data.need_invoice" href="javascript:void(0)" ms-click="setValue('data.need_invoice',!data.need_invoice)" class="acheckbox">开具发票</a>
+								交易结束后可向设计师索要发票，3-7个工作日开具发票并安排寄发，请注意查收！</span>
+							</div>
+
+							<div class="morecase" ms-visible="!showMoreInfo" ms-click="setValue('showMoreInfo',!showMoreInfo)" ><a href="javascript:void(0)"  class="more">更多设计要求</a></div>
+
+							<!-- 默认隐藏 点击展开 -->
+							<div class="hiddencon" ms-visible="showMoreInfo">
+								<h4 class="tl">选择用途<span>根据用途来做内容梳理</span></h4>
+								<div class="conp clearfix">
+									<div class="fl selectbar" ms-mouseleave="setValue('show.purpose',false)">
+										<div class="txtselect" ms-click="setValue('show.purpose',!show.purpose)">
+											<div class="txt" ms-visible="!data.purpose.length">请选择下方用途，最多３个标签</div>
+											<div class="txt" ms-visible="data.purpose.length">
+												<span ms-repeat="data.purpose" ms-text="el" ms-click="choose('purpose',el)"></span>
+											</div>
+											<a href="javascript:void(0)" class="droparrow" ></a>
+										</div>
+										<div class="tips_ul" ms-visible="show.purpose">
+											<ul>
+												<li ms-repeat="baseData.purpose"><a ms-click="choose('purpose',el)" ms-text="el" ms-class="active:check('purpose',el,data.purpose)" href="javascript:void(0)"></a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="fl">
+										<span ms-visible="data.purpose.length" class="greenwarn"></span>
+										<span ms-visible="checkState&&!data.purpose.length" class="redwarn">请选择！</span>
+									</div>
+								</div>
+								<h4 class="tl">应用行业<span>行业标准制作</span></h4>
+								<div class="conp">
+									<div class="selectbar" ms-mouseleave="setValue('show.profession',false)">
+										<div class="txtselect" ms-click="setValue('show.profession',!show.profession)">
+											<div ms-visible="!data.profession" class="txt">请选择应用行业</div>
+											<div ms-visible="data.profession" class="txt" ms-text="data.profession"></div>
+											<a href="javascript:void(0)" class="droparrow" ></a>
+										</div>
+										<div class="tips_ul2" ms-visible="show.profession">
+											<ul>
+												<li ms-repeat="baseData.profession"><a ms-click="choose('profession',el)" ms-text="el" ms-class="active:check('profession',el,data.profession)" href="javascript:void(0)"></a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<h4 class="tl">选择风格</h4>
+								<div class="conp">
+									<ul class="temstyle clearfix">
+										<li ms-repeat="baseData.style"><a ms-click="choose('style',el)" ms-text="el" ms-class="active:check('style',el,data.style)" href="javascript:void(0)"></a></li>
+									</ul>
+								</div>
+								<h4 class="tl">设计要求 <span class="req_star">（*必填）</span> </h4>
+								<div class="conp">
+									<div class="selectbar selectbar2" ms-mouseleave="setValue('show.effect',false)">
+										<a href="javascript:void(0)" class="droparrow" ms-click="setValue('show.effect',!show.effect)">{{data.effect}}</a>
+										<div class="tipsilst" ms-visible="show.effect">
+											<ul>
+												<li ms-repeat="baseData.effect"><a ms-click="choose('effect',el)" ms-text="el" ms-class="active:check('effect',el,data.effect)" href="javascript:void(0)"></a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="selectbar selectbar2"  ms-mouseleave="setValue('show.scale',false)">
+										<a href="javascript:void(0)" class="droparrow" ms-click="setValue('show.scale',!show.scale)">{{data.scale}}</a>
+										<div class="tipsilst"  ms-visible="show.scale">
+											<ul>
+												<li ms-repeat="baseData.scale"><a ms-click="choose('scale',el)" ms-text="el" ms-class="active:check('scale',el,data.scale)" href="javascript:void(0)"></a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="cb"></div>
+								</div>
+								
+								<h4 class="tl">希望完成时间 <span class="req_star">（*必填）</span> </h4>
+								<div class="conp">
+									<div class="datebar">
+										<div class="fl">
+											<input clazz="date" class="input_date" placeholder="选择完成周期" readonly="readonly" ms-duplex="data.date"/>
+										</div>
+										<div class="fl">
+											<span ms-visible="data.date" class="greenwarn"></span>
+											<span ms-visible="checkState&&!data.date" class="redwarn">请填写！</span>
+										</div>
+									</div>
+									<a ms-class="acheckboxed:data.is_urgent" ms-click="setValue('data.is_urgent',!data.is_urgent)" href="javascript:void(0)" class="acheckbox">为我加急</a><span class="graytxt">设计师将额外收取 20% 加急费</span>
+								</div>
+							</div>
+						</div>
+
+						<!-- 表格定制 -->  
+						<div class="form_et" ms-visible="designerTag=='et'">
+							<h4 class="tl">制定什么表格 <span class="req_star">（*必填）</span> </h4>
+							<div class="conp">
+								<ul class="temstyle clearfix">
+									<li ms-repeat="baseData.et_purpose"><a ms-click="choose('et_purpose',el)" ms-text="el" ms-class="active:check('et_purpose',el,data.et_purpose)"></a></li>
+								</ul>
+							</div>	
+							<h4 class="tl"> 需求详情 <span class="req_star">（*必填）</span>  <a ms-click="openlink('http://img1.template.cache.wps.cn/wps/cdnwps/upload/official/template/vip/commend_img/docer/chartdz.xls')" href="javascript:void(0);" class="fileicon">怎么写？</a></h4>
+							<div class="conp">
+								<p>
+									<textarea  ms-duplex="data.detail" class="textarea1" placeholder="请说明您定制的内容及设计风格。"></textarea><span class="i_posr2"><span ms-visible="data.detail" class="greenwarn"></span></span>		
+									<span ms-visible="checkState&&!data.detail" class="redwarn">请填写！</span>
+								</p>
+								<div class="uploadbg">
+									<!-- 上传按扭 -->
+									<div ms-visible="!data.fileUrl&&!process&&!fileError" class="uploa_con">
+										<div class="btn_upload" title="立即上传"  id="idUploadFile5">立即上传</div>
+										<span class="uploadtxt">
+										最多1个附件，文件请小于50M，支持Excel,RAR,ZIP
+										</span>
+									</div>
+									<!-- 上传中 -->
+									<div  ms-visible="process" class="uploa_con">
+										<!-- <div class="icon_type_wps"></div> -->
+										<div class="casediv">
+											<h5 class="cname" ms-text="data.fileName"></h5>
+											<div class="progressbar">
+												<div class="greenbg" ms-css-width="{{process}}%"></div>
+											</div>
+										</div>
+										<div class="progresstxt">上传进度:{{process}}%</div>
+									</div>
+									<!-- 上传完成 -->
+									<div ms-visible="data.fileUrl&&!process&&!fileError" class="uploa_con">
+										<!-- <div class="icon_type_wps"></div> -->
+										<div class="casediv2">
+											<h5 ms-text="data.fileName"></h5>
+											<!-- <p class="greentxt"><span>5.9</span>M</p> -->
+										</div>
+										<div class="upload_a">
+											<div id="idUploadFile6" href="javascript:void(0);">重新上传</div> 
+											<a ms-visible="data.fileUrl" ms-click="setValue('data.fileUrl','')" href="javascript:void(0);"  class="upload_del"> 删除</a>
+										</div>
+									</div>
+									<!-- 上传失败 -->
+									<div class="uploa_con" ms-visible="fileError">
+										<div class="icon_uploaderr"></div>
+										<div class="casediv_err">
+											<h5>上传失败</h5>
+											<p>{{fileError}}</p>
+										</div>
+										<div class="upload_a_err"><div id="idUploadFile9" href="javascript:void(0);">重新上传</div>  </div>
+									</div>
+								</div>
+							</div>
+							
+							<h4 class="tl">制作预算 <span class="req_star">（*必填）</span> </h4>
+							<div class="conp clearfix">
+								<div class="fl posr">
+									<input ms-duplex="data.price" maxlength="6" type="tel" class="input2" placeholder="输入金额">&nbsp;&nbsp;元 &nbsp;&nbsp;<a ms-click="goCustomPrice()" href="javascript:void(0);" class="bluelink">关于资费？</a> <br/>
+									<div class="tips_budget"  ms-visible="data.price&&checkPrice(data.price)&&data.price<300"> 一分钱一分货，合理的预算能促使设计师更积极的联系您，建议最低金额为300元。 </div>
+									<div class="howwrite" style="display:none;">
+									<dl>
+										<dt>各设计师最低匹配标准：</dt>
+										<dd>￥50  起 / 页  （高级）</dd>
+										<dd>￥200 起 / 页 （专业级）</dd>
+										<dd>￥500 起 / 页 （特聘级）</dd>
+									</dl>
+									<p>24 小时内为您安排设计师，售后7个工作日内免费修改，完美解决您的后顾之忧！</p>
+								</div>
+								</div>
+								<div class="fl">
+									<span ms-visible="data.price&&checkPrice(data.price)" class="greenwarn"></span>
+									<span ms-visible="checkState&&!data.price" class="redwarn">请填写！</span>
+									<span ms-visible="data.price&&!checkPrice(data.price)" class="redwarn">错误</span>
+								</div>	
+								
+							</div>
+							<h4 class="tl">如何联系您 <span class="req_star">（*必填）</span> </h4>
+							<div class="conp">
+								<ul class="contactway">
+									<li>
+										<label for="">手机：</label>
+										<input ms-duplex="data.tel" maxlength="11"  type="input" placeholder="沟通需求">
+										<span ms-visible="data.tel&&checkPhone(data.tel)" class="greenwarn"></span>										
+										<span ms-visible="checkState&&!data.tel" class="redwarn">请填写！</span>
+										<span ms-visible="!checkPhone(data.tel)" class="redwarn">错误</span>
+									</li>
+									<li>
+										<label for="">邮箱：</label>
+										<input ms-duplex="data.email" maxlength="60"  type="input" placeholder="接收作品或通知">
+										<span ms-visible="data.email&&checkEmail(data.email)" class="greenwarn"></span>
+										<span ms-visible="checkState&&!data.email" class="redwarn">请填写！</span>
+										<span ms-visible="!checkEmail(data.email)" class="redwarn">错误</span>
+									</li>
+									<li>
+										<label for="">Q Q：</label>
+										<input ms-duplex="data.qq" maxlength="40"  type="input" placeholder="稻壳设计师将通过QQ与您联系">
+										<span ms-visible="data.qq&&data.qq.length>4" class="greenwarn"></span>
+										<span ms-visible="checkState&&!data.qq" class="redwarn">请填写！</span>
+										<span ms-visible="checkState&&data.qq&&data.qq.length<5" class="redwarn">错误</span>
+									</li>
+								</ul>
+							</div>
+							<h4 class="tl">您可能还需要</h4>
+							<div class="conp">
+								<!-- 选中用acheckbox  -->
+								<a ms-class="acheckboxed:data.need_invoice" href="javascript:void(0)" ms-click="setValue('data.need_invoice',!data.need_invoice)" class="acheckbox">开具发票</a> <span class="graytxt">
+								交易结束后可向设计师索要发票，3-7个工作日开具发票并安排寄发，请注意查收！</span>
+							</div>
+							<div class="morecase" ms-visible="!showMoreInfo" ms-click="setValue('showMoreInfo',!showMoreInfo)"><a href="javascript:void(0)"  class="more">更多设计要求</a></div>
+
+							<!-- 默认隐藏 点击展开 -->
+							<div class="hiddencon" ms-visible="showMoreInfo">
+								<h4 class="tl">选择用途<span>根据用途来做内容梳理</span></h4>
+								<div class="conp clearfix">
+									<div class="fl selectbar" ms-mouseleave="setValue('show.purpose',false)">
+										<div class="txtselect"  ms-click="setValue('show.purpose',!show.purpose)">
+											<div ms-visible="!data.purpose.length" class="txt" >请选择下方用途，最多３个标签</div>
+											<div ms-visible="data.purpose.length" class="txt">
+												<span ms-repeat="data.purpose" ms-text="el" ms-click="choose('purpose',el)"></span>
+											</div>
+											<a href="javascript:void(0)" class="droparrow" ></a>
+											
+										</div>
+										<div class="tips_ul" ms-visible="show.purpose">
+											<ul>
+												<li ms-repeat="baseData.purpose"><a ms-click="choose('purpose',el)" ms-text="el" ms-class="active:check('purpose',el,data.purpose)" href="javascript:void(0)"></a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="fl">
+										<span ms-visible="data.purpose.length" class="greenwarn"></span>
+										<span ms-visible="checkState&&!data.purpose.length" class="redwarn">请选择！</span>
+									</div>
+								</div>
+								<h4 class="tl">应用行业<span>行业标准制作</span></h4>
+								<div class="conp">
+									<div class="selectbar" ms-mouseleave="setValue('show.profession',false)">
+										<div class="txtselect"  ms-click="setValue('show.profession',!show.profession)">
+											<div ms-visible="!data.profession" class="txt" style="display: block;">请选择应用行业</div>
+											<div ms-visible="data.profession"  class="txt" ><span ms-text="data.profession"></span></div>
+											<a href="javascript:void(0)" class="droparrow" ></a>
+										</div>
+										<div class="tips_ul2" ms-visible="show.profession">
+											<ul>
+												<li ms-repeat="baseData.profession"><a ms-click="choose('profession',el)" ms-text="el" ms-class="active:check('profession',el,data.profession)" href="javascript:void(0)"></a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<h4 class="tl">可视化输出</h4>
+								<div class="conp">
+									<ul class="temstyle clearfix">
+										<li ms-repeat="baseData.viewOutput"><a ms-click="choose('viewOutput',el)" ms-text="el" ms-class="active:check('viewOutput',el,data.viewOutput)" href="javascript:void(0)"></a></li>
+									</ul>
+								</div>
+								<h4 class="tl">希望完成时间 <span class="req_star">（*必填）</span> </h4>
+								<div class="conp">
+									<div class="datebar">
+										<div class="fl">
+											<input clazz="date" class="input_date" placeholder="选择完成周期" readonly="readonly" ms-duplex="data.date"/>
+										</div>
+										<div class="fl">
+											<span ms-visible="data.date" class="greenwarn"></span>
+											<span ms-visible="checkState&&!data.date" class="redwarn">请填写！</span>
+										</div>
+									</div>
+									<a ms-class="acheckboxed:data.is_urgent" ms-click="setValue('data.is_urgent',!data.is_urgent)" href="javascript:void(0)" class="acheckbox">为我加急</a><span class="graytxt">设计师将额外收取 20% 加急费</span>
+								</div>
+							</div>
+						</div>
+						<!-- 切换不同的类型 定制 end  -->
+
+						<!-- 说明 内容折叠时它也隐藏 -->	
+						<div class="notelist" style="display: block ;">
+							<ul class="clearfix">
+								<li class="txtbg_1">
+									<h5 class="himg1">优势一：专属客服</h5>
+									<p>配备专业的客服人员在项目流程中为您服务，提供专业的需求咨询讲解，针对需求情况为您挑选匹配适合的设计师。</p>
+								</li>
+								<li class="txtbg_2">
+									<h5 class="himg2">优势二：专业的设计</h5>
+									<p>只有拥有丰富设计经验的资深金牌设计师才能参与，且特邀金牌设计师提供的设计方案必须要有创意说明。</p>
+								</li>
+								<li class="txtbg_3">
+									<h5 class="himg3">优势三：方案保障</h5>
+									<p>设计方案保证为原创，且保证方案修改到满意为止，项目中出现任保何问题都由WPS Docer全程协助处理。</p>
+								</li>
+							</ul>
+						</div>
+ 						<!-- 说明 end  -->
+					</div>
+
+				</div>
+				<!-- 表单左边内容 end -->
+
+				<!-- 表单右侧 -->
+				<div class="form_right">
+					<!-- 我的需求清单 WPS -->  
+					<div class="rbg" ms-visible="designerTag=='word'">
+						<h3>我的需求清单</h3>
+						<ul class="needlist clearfix">
+							<li><span class="txt1">定制项目：</span><span class="txt2">定制简历</span></li>
+							<li ms-visible="data.price&&data.fileUrl"><span class="txt1">定制对象：</span><span class="txt2">￥<strong ms-text="data.price"></strong> 元 （{{data.occupation}}）</span></li>
+							<li ms-visible="!data.price"><span class="txt1">定制对象：</span><span class="txt2">（{{data.occupation}}）</span></li>
+							<li><span class="txt1">原始附件：</span><span class="txt2">{{data.fileName}} </span></li>
+							<li><span class="txt1">制作格式</span><span class="txt2">{{data.fileForm}}</span></li>
+							<li><span class="txt1">特殊服务：</span><span class="txt2">{{data.is_urgent?'加急制作':''}}</span></li>
+						</ul>
+						<div class="rbtn"><a href="javascript:void(0)" class="btn_orange_suctom" ms-text="submit_btn_name" ms-click="submit_order()"></a></div>
+						<p class="center">售后7个工作日之内提供免费修改</p>
+					</div>
+					<!-- 我的需求清单 WPS end-->
+
+					<!-- 我的需求清单 WPP -->  
+					<div class="rbg" ms-visible="designerTag=='ppt'">	
+						<h3>我的需求清单</h3>
+						<ul class="needlist clearfix">
+							<li><span class="txt1">定制项目：</span><span class="txt2">PPT定制</span></li>
+							<li ms-visible="data.price"><span class="txt1">制作预算：</span><span class="txt2">￥<strong ms-text="data.price"></strong> 元 </span></li>
+							<li ms-visible="!data.price"><span class="txt1">制作预算：</span><span class="txt2"><strong ></strong></span></li>
+							<li><span class="txt1">原始附件：</span><span class="txt2">{{data.fileName}} </span></li>
+							<li><span class="txt1">项目用途：</span><span class="txt2"><span ms-repeat="data.purpose" ms-text="el+(($index+1)!=data.purpose.length?',':'')"></span></span></li>
+							<li><span class="txt1">应用行业：</span><span class="txt2">{{data.profession}}</span></li>
+							<li><span class="txt1">设计要求：</span><span class="txt2">{{data.effect}}、{{data.scale}}、{{data.style}}</span></li>
+							<li><span class="txt1">特殊服务：</span><span class="txt2">{{data.is_urgent?'加急制作':''}}</span></li>
+							<li><span class="txt1">发票开具：</span><span class="txt2">{{data.need_invoice?'开具发票':''}}</span></li>
+						</ul>
+						<div class="rbtn"><a href="javascript:void(0)" class="btn_orange_suctom" ms-text="submit_btn_name" ms-click="submit_order()"></a></div>
+					</div>
+					<!-- 我的需求清单 WPP end-->
+					<!-- 我的需求清单 ET -->  
+					<div class="rbg" ms-visible="designerTag=='et'">
+						<h3>我的需求清单</h3>
+						<ul class="needlist clearfix">
+							<li><span class="txt1">定制项目：</span><span class="txt2">数据图片</span></li>
+							<li ms-visible="data.price"><span class="txt1">制作预算：</span><span class="txt2">￥<strong>{{data.price}}</strong> 元 </span></li>
+							<li ms-visible="!data.price"><span class="txt1">制作预算：</span><span class="txt2"><strong></strong>  </span></li>
+							<li><span class="txt1">原始附件：</span><span class="txt2">{{data.fileName}} </span></li>
+							<li><span class="txt1">项目用途：</span><span class="txt2"><span ms-repeat="data.purpose" ms-text="el+(($index+1)!=data.purpose.length?',':'')"></span></span></li>
+							<li><span class="txt1">应用行业：</span><span class="txt2">{{data.profession}}</span></li>
+							<li><span class="txt1">设计要求：</span><span class="txt2">{{data.viewOutput?data.viewOutput+'（可视化）':''}}</span></li>
+							<li><span class="txt1">特殊服务：</span><span class="txt2">{{data.is_urgent?'加急制作':''}}</span></li>
+							<li><span class="txt1">发票开具：</span><span class="txt2">{{data.need_invoice?'开具发票':''}}</span></li>
+						</ul>
+						<div class="rbtn"><a href="javascript:void(0)" class="btn_orange_suctom" ms-text="submit_btn_name" ms-click="submit_order()"></a></div>
+					</div>
+					<!-- 我的需求清单 ET end  -->
+					<!-- 三个清单都显示 联系客服 -->
+					<div class="rbg contactus"  style="display: block;">
+						<h3 class="hd" ms-click="setValue('showServieInfo',!showServieInfo)"><span>联系客服帮您发需求</span> <a href="javascript:void(0);" class="arrow2" ms-class="arrow2_trans:showServieInfo"></a></h3>
+						<!-- 没点击时用 arrow2，点击后用 arrow2_trans，点击后用 -->
+						<div class="hiddencon" ms-visible="showServieInfo">
+							<div class="qqdiv">
+								<p >周一至周五09:00-18:00</p>
+								<p class="center">
+									<a href="tencent://message/?uin=2853732716&site=qq&menu=yes" class="qqlink"  id="vipServiceTipButton" target="_top">小稻</a>
+									<a href="tencent://message/?uin=2853732737&site=qq&menu=yes" class="qqlink" id="vipServiceTipButton2" target="_top">小壳</a>
+								</p>
+							</div>
+							<div class="worktime">
+								<p>周一至周五09:00-18:00</p>
+								<p class="telicon">0756-3335688-2657</p>
+							</div>
+						</div>
+					</div>
+					<!-- 三个清单都显示 联系客服 end-->
+				</div>
+				<!-- 表单右侧 end -->
+			</div>
+		</div>
+	</div>
+	<!-- 定制表单 end -->
+</div>
+
+	<!-- 定制表单 书写实例弹窗  -->
+	<div ms-controller="customOnekeyCtrl" class="popup_fixed" ms-visible="showCustomCase">
+		<div class="popup_case">
+			<div class="popuphead">
+				<h3>书写实例</h3>
+				<a href="javascript:void(0);" class="close" title="关闭" ms-click="setValue('showCustomCase',false)"></a>
+			</div>
+			<div class="cont_h" id="showCustomCase">
+				<p><strong>项目标题：</strong>XXX公司报表设计</p>
+				<p><strong>公司名称：</strong>XXX珠光宝器</p>
+				<p><strong>经营范围：</strong>黄金、白银、钻石、翡翠、彩色宝石等珠宝</p>
+				<p><strong>公司网址：</strong>www.XXX.com</p>
+				<br/>
+				<p><strong>主要用途：</strong>介绍实体店、网店、柜台、名片和产品等介绍。</p>
+				 <br/>
+				<p><strong>设计要求：</strong></p>
+				<p>1、设计要求主题突出、寓意深刻。</p>
+				<p>2、表现要求简约大气、突显雍容华贵。</p>
+				<p>3、作品风格、形式不限，但必须原创。</p>
+				<p>4、设计PPT规格均为16：9宽屏显示。</p>
+				<p>5、必须是彩色原稿，能以不同的比例尺寸清晰显示。</p>
+				<p>6、标识应为平面形式，可用于各类广告、宣传商务推介用途。</p>
+				<p>7、内容显示的方式，可以添加少量的动画效果。</p>
+				 <br/>
+				<p><strong>知识产权说明：</strong></p>
+				<p>1、设计要求主题突出、寓意深刻。</p>
+				<p>2、表现要求简约大气、突显雍容华贵。</p>
+				<p>3、作品风格、形式不限，但必须原创。</p>
+				<p>4、设计PPT规格均为16：9宽屏显示。</p>
+				<p>5、必须是彩色原稿，能以不同的比例尺寸清晰显示。</p>
+				<p>6、标识应为平面形式，可用于各类广告、宣传商务推介用途。</p>
+				<p>7、内容显示的方式，可以添加少量的动画效果。</p>
+			</div>
+			<div class="bm"><a href="javascript:void(0);" class="btn_orange" ms-click="setValue('showCustomCase',false)" ms-click-2="applyCase()">套用实例</a></div>
+		</div>
+		<div class="popupmask" style="display:none"></div>
+	</div>
+	<!-- 定制表单 书写实例弹窗 end -->
+
+
+	<!-- 提交成功或支付中 -->
+	<div ms-controller="customOnekeyCtrl" ms-visible="payState==1||payState==2" class="popup_fixed" style="display:none;">
+		<div class="popup_cus">
+			<div class="popuphead">
+				<h3>定制提示</h3>
+				<a href="javascript:void(0);" class="close" title="关闭" ms-click="backIndex()"></a>
+			</div>
+			<!-- 提交定制成功  -->
+			<div ms-visible="payState==1" class="cont_1">
+				 <h5><span class="icon_suc"></span>恭喜，您成功提交设计需求</h5>
+				 <p>您的需求《<span>{{customMap[designerTag]}}</span>》已提交成功，我们将1~3个工作日内安排设计师与您的QQ（{{data.qq}}）联系，请保持QQ畅通并允许添加好友。</p>
+				 <p class="f12">* 如果您在交易过程中有任何问题，请联系稻壳邮箱：<a href="mailto:docer@wps.cn" class="bluelink">docer@wps.cn</a></p>
+				 <div class="btn">
+				 	<a href="javascript:void(0);" class="btn_orange" ms-click="backIndex()" ms-click-2="openlink('http://my.docer.com/#!/myOrder/customized_all')">查看我的订单</a>
+				 	<a href="javascript:void(0);" class="btn_orange" ms-click="backIndex()">返回</a>
+			 	 </div>
+			</div>
+			<!-- 定制支付中  -->
+			<div ms-visible="payState==2" class="cont_1">
+				 <h5><span class="icon_wait"></span>正在支付<span>（请不要关闭支付窗口）</span></h5>
+				 <p><span class="startxt">*</span>支付成功后会有专业客服与你QQ（<span>{{data.qq}}</span>）取得联系，请保持QQ畅通并允许添加好友。</p>
+				 <p class="f12">支付完成后，请根据您支付的情况点击下面按钮。</p>
+				 <div class="btn">
+				 	<a href="javascript:void(0);" class="btn_orange" ms-click="setValue('payState',1)">支付完成</a>
+				 	<a href="javascript:void(0);" class="btn_bd_orange" ms-click="backIndex()" ms-click-2="openlink('https://vip.wps.cn/help#!20')">支付出现问题</a>
+			 	</div>
+			</div>
+		</div>
+		<div class="popupmask"></div>
+	</div>
+	<!-- 支付成功失败 弹窗 end -->
+
+
+		
+	<!-- 模板收藏成功失败提示 -->	
+	<div class="fav_suc">收藏成功！</div>
+	<div class="fav_fail">收藏失败！</div>
+	<!-- 分享功能 -->
+	<div id="share_tip" class="sharelist_tip" style="display: none; left: 500px; top: 100px;">
+		<div data-tag="share_1">
+			<a href="javascript:void(0)" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博" ms-click="gotoShare($event, 'tsina')">新浪微博</a>
+			<a href="javascript:void(0)" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间" ms-click="gotoShare($event, 'qzone')">QQ空间</a>
+			<a href="javascript:void(0)" class="bds_weixin" data-cmd="weixin" title="分享到微信" ms-click="gotoShare($event, 'weixin')">微信</a>
+			<a href="javascript:void(0)" class="bds_douban" data-cmd="douban" title="分享到豆瓣网" ms-click="gotoShare($event, 'douban')">豆瓣</a>
+			<a href="javascript:void(0)" class="bds_renren" data-cmd="renren" title="分享到人人网" ms-click="gotoShare($event, 'renren')">人人网</a>
+			<a href="javascript:void(0)" class="bds_huaban" data-cmd="huaban" title="分享到花瓣" ms-click="gotoShare($event, 'huaban')">花瓣网</a>
+		</div>
+	</div>
+	<!-- 分享功能 end -->
+
+	<script type="text/javascript" src="<%$media_script_prefix%>/custom/v2/js/lib/require.min.js"></script>
+    <script type="text/javascript" src="<%$media_script_prefix%>/custom/v2/js/load-debug.js"></script>
+    <!-- -->
+    <!--<script type="text/javascript" src="/application/views/wps/views/task/js/load.js?v=<%$media_ver%>"></script>-->
+    <script type="text/javascript">
+        load();
+    </script>    
+    <div style="display: none;">
+        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257814101'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/q_stat.php%3Fid%3D1257814101' type='text/javascript'%3E%3C/script%3E"));</script>
+    </div>
+
+</body>
+</html>
