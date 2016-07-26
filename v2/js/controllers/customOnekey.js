@@ -372,6 +372,9 @@ define(['jquery', 'avalon', 'dataServices',
             vm.data.detail=content;
         },
         backIndex:function(){
+        	$("#mainBox").animate({
+        		scrollTop:0
+        	},0);
             vm.payState=0;
             vm.showMe=false;
             avalon.vmodels.mainCtrl.showMe=true;

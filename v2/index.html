@@ -4,27 +4,66 @@
 	<meta charset="UTF-8">
 	<title>定制</title>
 	<link rel="stylesheet" href="<%$media_script_prefix%>/custom/v2/css/custom.css">
+	<style>
+		.ms-controller{
+			display: none;
+		}
+		.csm_banner_ul li{
+			display: none;
+		} 
+		.csm_banner_ul li:first-child{
+			display: block;
+		}
+	</style>
 	<script type="text/javascript">
 	document.domain="wps.cn";
 	</script>
 </head>
 <body>
-<div class="custom_scroll" ms-controller="mainCtrl" ms-class="w900:hideTask">
+<div class="custom_scroll" ms-controller="mainCtrl" ms-class="w900:hideTask" id="mainBox">
 	<!-- 头部导航 start -->
 	<div class="top_nav" ms-visible="showMe">
 		<ul class="top_nav_center">
-			<li ms-click="setValue('designerTag','all')"><a ms-class="active:designerTag == 'all'" href="#">全部</a></li>
-			<li ms-click="setValue('designerTag','ppt')"><a ms-class="active:designerTag == 'ppt'" href="#">PPT定制</a></li>
-			<li ms-click="setValue('designerTag','word')"><a ms-class="active:designerTag == 'word'" href="#">简历定制</a></li>
-			<li ms-click="setValue('designerTag','et')"><a ms-class="active:designerTag == 'et'" href="#">报表定制</a></li>
-			<li ms-click="setValue('designerTag','law')"><a ms-class="active:designerTag == 'law'" href="#">法律定制</a></li>
-			<li ms-click="setValue('designerTag','graphic')"><a ms-class="active:designerTag == 'graphic'" href="#">平面设计</a></li>
+			
+			<li ms-click="setValue('designerTag','all')">
+				<a ms-class="active:designerTag == 'all'" href="#" ms-click="queryAllDesignerDatas">全部</a>
+			</li>
+			<!-- 当客户端为wpp时才显示，下方相同li不显示，用于排序用  -->
+			<li ms-click="setValue('designerTag','ppt')" ms-visible="clientName=='ppt'" class="ms-controller">
+				<a ms-class="active:designerTag == 'ppt'" href="#" ms-click-1="clickOneTypeAllDesigners('ppt')"  ms-click-2="clickDesignerTag(0,'ppt')" ms-click-3="sendCollect(5)">PPT定制</a>
+			</li>
+			<!-- 当客户端为word时才显示，下方相同li不显示，用于排序用  -->
+			<li ms-click="setValue('designerTag','word')" ms-visible="clientName=='word'" class="ms-controller">
+				<a ms-class="active:designerTag == 'word'" href="#" ms-click-1="clickOneTypeAllDesigners('word')"  ms-click-2="clickDesignerTag(0,'jianli')" ms-click-3="sendCollect(5)">简历定制</a>
+			</li>
+			<!-- 当客户端为et时才显示，下方相同li不显示，用于排序用 -->
+			<li ms-click="setValue('designerTag','et')" ms-visible="clientName=='et'" class="ms-controller">
+				<a ms-class="active:designerTag == 'et'" href="#" ms-click-1="clickOneTypeAllDesigners('et')"  ms-click-2="clickDesignerTag(0,'baobiao')" ms-click-3="sendCollect(5)">Excel/ET定制</a>
+			</li>
+			<li ms-click="setValue('designerTag','ppt')" ms-visible="clientName!='ppt'">
+				<a ms-class="active:designerTag == 'ppt'" href="#" ms-click-1="clickOneTypeAllDesigners('ppt')"  ms-click-2="clickDesignerTag(0,'ppt')" ms-click-3="sendCollect(5)">PPT定制</a>
+			</li>
+			<li ms-click="setValue('designerTag','word')" ms-visible="clientName!='word'">
+				<a ms-class="active:designerTag == 'word'" href="#" ms-click-1="clickOneTypeAllDesigners('word')"  ms-click-2="clickDesignerTag(0,'jianli')" ms-click-3="sendCollect(5)">简历定制</a>
+			</li>
+			<li ms-click="setValue('designerTag','et')" ms-visible="clientName!='et'">
+				<a ms-class="active:designerTag == 'et'" href="#" ms-click-1="clickOneTypeAllDesigners('et')"  ms-click-2="clickDesignerTag(0,'baobiao')" ms-click-3="sendCollect(5)">Excel/ET定制</a>
+			</li>
+			<li ms-click="setValue('designerTag','law')">
+				<a ms-class="active:designerTag == 'law'" href="#" ms-click-1="clickOneTypeAllDesigners('law')"  ms-click-2="clickDesignerTag(0,'law')" ms-click-3="sendCollect(5)">法律合同定制</a>
+			</li>
+			<li ms-click="setValue('designerTag','graphic')">
+				<a ms-class="active:designerTag == 'graphic'" href="#" ms-click-1="clickOneTypeAllDesigners('graphic')"  ms-click-2="clickDesignerTag(0,'graphic')" ms-click-3="sendCollect(5)">平面设计</a>
+			</li>
+			<li>
+				<a href="#" ms-click-1="submitTask()" ms-click-2="sendCollect(2)">发布需求</a>
+			</li>
 		</ul>
 	</div>
 	<!-- 头部导航 end -->
 
 	<!-- 右侧导航 start -->
-	<ul class="right_nav" ms-visible="designerTag == 'all'&&showMe">
+	<!--<ul class="right_nav" ms-visible="designerTag == 'all'&&showMe">
 		<li><a ms-click="submitTask()"  ms-click-2="sendCollect(2)" href="javascript:void(0);">发布需求</a></li>
 		<li ms-click="setValue('rightDesignerTag','ppt')"><a ms-class="active:rightDesignerTag == 'ppt'" href="#ppt">PPT定制</a></li>
 		<li ms-click="setValue('rightDesignerTag','word')"><a ms-class="active:rightDesignerTag == 'word'" href="#doc">简历定制</a></li>
@@ -32,7 +71,7 @@
 		<li ms-click="setValue('rightDesignerTag','law')"><a ms-class="active:rightDesignerTag == 'law'" href="#law">法律定制</a></li>
 		<li ms-click="setValue('rightDesignerTag','design')"><a ms-class="active:rightDesignerTag == 'graphic'" href="#design">平面设计</a></li>
 		<li><a href="javascript:;" class="top" ms-click="returnToTop">TOP</a></li>
-	</ul>
+	</ul>-->
 	<!-- 右侧导航 end -->
 	<!-- 定制首页   -->
 	<div ms-visible="showMe" class="custom_layout">
@@ -44,21 +83,21 @@
 
 		<div class="csm_banner">
 			<ul class="csm_banner_ul">
-				<li><a href="#"><img src="<%$media_script_prefix%>/custom/v2/css/img/img_design/wpp/801.jpg" alt=""></a></li>
-				<li style="display: none"><a href="#"><img src="http://wps.docer.wps.cn/application/partner/views/custom/v2/css/img/custom_ban.jpg?v=7-22-11-25" alt=""></a></li>
+				<li ms-repeat-el="topBannerBox"><a href="#"><img ms-attr-src="el.pic_url" alt=""></a></li>
 			</ul>
 			<ul class="banner_dot_ul">
-				<li><a ms-class="active:topBannerIndex == 1" href="javascript:void(0);" ms-click="clickTopBanner(1, 2)"></a></li>
-				<li><a ms-class="active:topBannerIndex == 2" href="javascript:void(0);" ms-click="clickTopBanner(2, 1)"></a></li>
+				<li ms-repeat-el="topBannerBox"><a ms-class="active:topBannerIndex == $index + 1" href="javascript:void(0);" ms-click="clickTopBanner($index + 1, topBannerIndex)"></a></li>
 			</ul>
 		</div>
-		<!-- PPT定制 内容展示  -->
-		<div class="custom_con" ms-visible="designerTag == 'all' || designerTag == 'ppt'">
+		
+		<!-- PPT定制 内容展示(当客户端为wpp时才显示，下方PPT定制div不显示，用于排序用)  -->
+		<div class="custom_con pptBox" ms-visible="designerTag == 'all' || designerTag == 'ppt'" ms-if="clientName=='ppt'">
 			<a class="location" name="ppt"></a>
 			<div class="csm_head">
-				<h3 class="csmtitle">PPT定制<a ms-visible="designerTag == 'all'" href="javascript:void(0);" class="all" target="_blank" ms-click="choseOneTypeDesigner('ppt')"  ms-click-2="sendCollect(5)">全部>></a></h3>
+				<h3 class="csmtitle">PPT定制<a ms-visible="designerTag == 'all'" href="#" class="all" ms-click-1="clickOneTypeAllDesigners('ppt')"  ms-click-2="clickDesignerTag(0,'ppt')" ms-click-3="sendCollect(5)">全部>></a></h3>
 				<div class="csmtab">
 					<ul class="dsg_type">
+						<li ms-visible="designerTag == 'ppt'"><a href="#" ms-class="active:0==designerTagId.wpp" ms-click="clickDesignerTag(0,'ppt')">全部</a></li>
 						<li ms-repeat-el="designerTagData.wpp"><a href="#" ms-class="active:el.id==designerTagId.wpp" ms-text="el.name" ms-click="clickDesignerTag(el.id,'ppt')"></a></li>
 					</ul>
 				</div>
@@ -71,7 +110,7 @@
 						<li ms-visible="$index<hideMaxNum*pageIndex" ms-repeat-el="showDesignerData.wpp" ms-mouseenter="mouseenter($index)" ms-mouseleave="mouseleave($index)">
 							<div class="whitebg" >
 								<div class="dsgcon">
-									<div ms-click="designerShop($index)" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
+									<div ms-click="designerShop($index, 'wpp')" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
 									<div class="worker_label">
 										<span ms-repeat-tag="el.tags" ms-text="tag"></span>
 									</div>
@@ -101,17 +140,19 @@
 					</ul>
 				</div>
 			</div>
+			<div ms-visible="hideMaxNum*pageIndex<showDesignerData.wpp.length" class="moredsg" ms-click="moreDesigner()"  ms-click-2="sendCollect(5)"><a href="javascript:void(0);" class="more">更多设计师</a></div>
 			<!-- 设计师  end -->
 		</div>
 		<!-- PPT定制 内容展示 end -->
 
-		<!-- 简历定制 内容展示  -->
-		<div class="custom_con" ms-visible="designerTag == 'all' || designerTag == 'word'">
+		<!-- 简历定制 内容展示(当客户端为word时才显示，下方简历定制div不显示，用于排序用)  -->
+		<div class="custom_con wordBox" ms-visible="designerTag == 'all' || designerTag == 'word'" ms-if="clientName=='word'">
 			<a class="location" name="doc"></a>
 			<div class="csm_head">
-				<h3 class="csmtitle">简历定制<a ms-visible="designerTag == 'all'" href="javascript:void(0);" class="all" target="_blank" ms-click="choseOneTypeDesigner('word')"  ms-click-2="sendCollect(5)">全部>></a></h3>
+				<h3 class="csmtitle">简历定制<a ms-visible="designerTag == 'all'" href="#" class="all" ms-click-1="clickOneTypeAllDesigners('word')"  ms-click-2="clickDesignerTag(0,'jianli')" ms-click-3="sendCollect(5)">全部>></a></h3>
 				<div class="csmtab">
 					<ul class="dsg_type">
+						<li ms-visible="designerTag == 'word'"><a href="#" ms-class="active:0==designerTagId.word" ms-click="clickDesignerTag(0,'jianli')">全部</a></li>
 						<li ms-repeat-el="designerTagData.word"><a href="#" ms-class="active:el.id==designerTagId.word" ms-text="el.name" ms-click="clickDesignerTag(el.id,'jianli')"></a></li>
 					</ul>
 				</div>
@@ -124,7 +165,7 @@
 						<li ms-visible="$index<hideMaxNum*pageIndex" ms-repeat-el="showDesignerData.word" ms-mouseenter="mouseenter($index)" ms-mouseleave="mouseleave($index)">
 							<div class="whitebg" >
 								<div class="dsgcon">
-									<div ms-click="designerShop($index)" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
+									<div ms-click="designerShop($index,'word')" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
 									<div class="worker_label">
 										<span>小样</span>
 										<span>小样小样</span>
@@ -157,17 +198,19 @@
 					</ul>
 				</div>
 			</div>
+			<div ms-visible="hideMaxNum*pageIndex<showDesignerData.word.length" class="moredsg" ms-click="moreDesigner()"  ms-click-2="sendCollect(5)"><a href="javascript:void(0);" class="more">更多设计师</a></div>
 			<!-- 设计师  end -->
 		</div>
 		<!-- 简历定制 内容展示 end -->
 
-		<!-- 报表定制 内容展示  -->
-		<div class="custom_con" ms-visible="designerTag == 'all' || designerTag == 'et'">
+		<!-- 报表定制 内容展示 (当客户端为et时才显示，下方报表定制div不显示，用于排序用) -->
+		<div class="custom_con etBox" ms-visible="designerTag == 'all' || designerTag == 'et'" ms-if="clientName=='et'">
 			<a class="location" name="et"></a>
 			<div class="csm_head">
-				<h3 class="csmtitle">报表定制<a ms-visible="designerTag == 'all'" href="javascript:void(0);" class="all" target="_blank" ms-click="choseOneTypeDesigner('et')"  ms-click-2="sendCollect(5)">全部>></a></h3>
+				<h3 class="csmtitle">Excel/ET定制<a ms-visible="designerTag == 'all'" href="#" class="all" ms-click-1="clickOneTypeAllDesigners('et')"  ms-click-2="clickDesignerTag(0,'baobiao')" ms-click-3="sendCollect(5)">全部>></a></h3>
 				<div class="csmtab">
 					<ul class="dsg_type">
+						<li ms-visible="designerTag == 'et'"><a href="#" ms-class="active:0==designerTagId.et" ms-click="clickDesignerTag(0,'baobiao')">全部</a></li>
 						<li ms-repeat-el="designerTagData.et"><a href="#" ms-class="active:el.id==designerTagId.et" ms-text="el.name" ms-click="clickDesignerTag(el.id,'baobiao')"></a></li>
 					</ul>
 				</div>
@@ -180,7 +223,7 @@
 						<li ms-visible="$index<hideMaxNum*pageIndex" ms-repeat-el="showDesignerData.et" ms-mouseenter="mouseenter($index)" ms-mouseleave="mouseleave($index)">
 							<div class="whitebg" >
 								<div class="dsgcon">
-									<div ms-click="designerShop($index)" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
+									<div ms-click="designerShop($index,'et')" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
 									<div class="worker_label">
 										<span>小样</span>
 										<span>小样小样</span>
@@ -213,17 +256,190 @@
 					</ul>
 				</div>
 			</div>
+			<div ms-visible="hideMaxNum*pageIndex<showDesignerData.et.length" class="moredsg" ms-click="moreDesigner()"  ms-click-2="sendCollect(5)"><a href="javascript:void(0);" class="more">更多设计师</a></div>
+			<!-- 设计师  end -->
+		</div>
+		<!-- 报表定制 内容展示 end -->
+		
+		<!-- PPT定制 内容展示  -->
+		<div class="custom_con pptBox" ms-visible="designerTag == 'all' || designerTag == 'ppt'" ms-if="clientName!='ppt'">
+			<a class="location" name="ppt"></a>
+			<div class="csm_head">
+				<h3 class="csmtitle">PPT定制<a ms-visible="designerTag == 'all'" href="#" class="all" ms-click-1="clickOneTypeAllDesigners('ppt')"  ms-click-2="clickDesignerTag(0,'ppt')" ms-click-3="sendCollect(5)">全部>></a></h3>
+				<div class="csmtab">
+					<ul class="dsg_type">
+						<li ms-visible="designerTag == 'ppt'"><a href="#" ms-class="active:0==designerTagId.wpp" ms-click="clickDesignerTag(0,'ppt')">全部</a></li>
+						<li ms-repeat-el="designerTagData.wpp"><a href="#" ms-class="active:el.id==designerTagId.wpp" ms-text="el.name" ms-click="clickDesignerTag(el.id,'ppt')"></a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- 设计师内容切换 --> 
+			<!-- 个性简历 -->
+			<div class="tabcon_dsg" style="display: block;">
+				<div class="dsglist" >
+					<ul class="clearfix">
+						<li ms-visible="$index<hideMaxNum*pageIndex" ms-repeat-el="showDesignerData.wpp" ms-mouseenter="mouseenter($index)" ms-mouseleave="mouseleave($index)">
+							<div class="whitebg" >
+								<div class="dsgcon">
+									<div ms-click="designerShop($index,'wpp')" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
+									<div class="worker_label">
+										<span ms-repeat-tag="el.tags" ms-text="tag"></span>
+									</div>
+									<div ms-click="designerShop($index)" class="dsgimg">
+										<a href="javascript:void(0);" > 
+											<img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.logo" alt="">
+											<span class="dsgname" ms-text="el.name"></span>
+											<span ms-visible="el.status==1" class="status">(空闲)</span>
+											<span ms-visible="el.status==2" class="status">(离线)</span>
+											<span ms-visible="el.status==3" class="status">(繁忙)</span>
+										</a>
+										<span class="dsg_sales">月销量 <span ms-text="el.total_order"></span>
+									</div>
+									<div class="dsg_prize">￥<span ms-text="designerPrice.wpp"></span>元/页</div>
+									<div class="cb"></div>
+									<a ms-attr-href="tencent://message/?uin={{el.qq}}&site=qq&menu=yes" class="btn_bd_orange2"  ms-click="sendCollect(3)" target="_top">在线咨询</a>
+									<!-- 20160615去掉	
+									<div ms-attr-id="dgrEmploy_1{{$index}}" class="btnc" style="display:block"><a href="javascript:void(0);" class="btn_hire">雇佣TA</a></div>
+									<div ms-attr-id="dgrEmploy_2{{$index}}" class="btnc">
+										<a ms-attr-href="tencent://message/?uin={{el.qq}}&site=qq&menu=yes" class="btn_orange"  ms-click="sendCollect(3)" target="_top">洽谈需求</a>
+										<a ms-click="customPay(el.id)"  ms-click-2="sendCollect(4)" href="javascript:void(0);" class="btn_bd_orange" target="_top">支付佣金</a>
+									</div>
+									-->
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div ms-visible="hideMaxNum*pageIndex<showDesignerData.wpp.length" class="moredsg" ms-click="moreDesigner()"  ms-click-2="sendCollect(5)"><a href="javascript:void(0);" class="more">更多设计师</a></div>
+			<!-- 设计师  end -->
+		</div>
+		<!-- PPT定制 内容展示 end -->
+
+		<!-- 简历定制 内容展示  -->
+		<div class="custom_con wordBox" ms-visible="designerTag == 'all' || designerTag == 'word'" ms-if="clientName!='word'">
+			<a class="location" name="doc"></a>
+			<div class="csm_head">
+				<h3 class="csmtitle">简历定制<a ms-visible="designerTag == 'all'" href="#" class="all" ms-click-1="clickOneTypeAllDesigners('word')"  ms-click-2="clickDesignerTag(0,'jianli')" ms-click-3="sendCollect(5)">全部>></a></h3>
+				<div class="csmtab">
+					<ul class="dsg_type">
+						<li ms-visible="designerTag == 'word'"><a href="#" ms-class="active:0==designerTagId.word" ms-click="clickDesignerTag(0,'jianli')">全部</a></li>
+						<li ms-repeat-el="designerTagData.word"><a href="#" ms-class="active:el.id==designerTagId.word" ms-text="el.name" ms-click="clickDesignerTag(el.id,'jianli')"></a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- 设计师内容切换 --> 
+			<!-- 个性简历 -->
+			<div class="tabcon_dsg" style="display: block;">
+				<div class="dsglist" >
+					<ul class="clearfix">
+						<li ms-visible="$index<hideMaxNum*pageIndex" ms-repeat-el="showDesignerData.word" ms-mouseenter="mouseenter($index)" ms-mouseleave="mouseleave($index)">
+							<div class="whitebg" >
+								<div class="dsgcon">
+									<div ms-click="designerShop($index,'word')" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
+									<div class="worker_label">
+										<span>小样</span>
+										<span>小样小样</span>
+										<span>小样小样</span>
+										<span>小样</span>
+									</div>
+									<div ms-click="designerShop($index)" class="dsgimg">
+										<a href="javascript:void(0);" > 
+											<img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.logo" alt="">
+											<span class="dsgname" ms-text="el.name"></span>
+											<span ms-visible="el.status==1" class="status">(空闲)</span>
+											<span ms-visible="el.status==2" class="status">(离线)</span>
+											<span ms-visible="el.status==3" class="status">(繁忙)</span>
+										</a>
+										<span class="dsg_sales">月销量 <span ms-text="el.total_order"></span>
+									</div>
+									<div class="dsg_prize">￥<span ms-text="designerPrice.word"></span>元/页</div>
+									<div class="cb"></div>
+									<a ms-attr-href="tencent://message/?uin={{el.qq}}&site=qq&menu=yes" class="btn_bd_orange2"  ms-click="sendCollect(3)" target="_top">在线咨询</a>
+									<!-- 20160615去掉	
+									<div ms-attr-id="dgrEmploy_1{{$index}}" class="btnc" style="display:block"><a href="javascript:void(0);" class="btn_hire">雇佣TA</a></div>
+									<div ms-attr-id="dgrEmploy_2{{$index}}" class="btnc">
+										<a ms-attr-href="tencent://message/?uin={{el.qq}}&site=qq&menu=yes" class="btn_orange"  ms-click="sendCollect(3)" target="_top">洽谈需求</a>
+										<a ms-click="customPay(el.id)"  ms-click-2="sendCollect(4)" href="javascript:void(0);" class="btn_bd_orange" target="_top">支付佣金</a>
+									</div>
+									-->
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div ms-visible="hideMaxNum*pageIndex<showDesignerData.word.length" class="moredsg" ms-click="moreDesigner()"  ms-click-2="sendCollect(5)"><a href="javascript:void(0);" class="more">更多设计师</a></div>
+			<!-- 设计师  end -->
+		</div>
+		<!-- 简历定制 内容展示 end -->
+
+		<!-- 报表定制 内容展示  -->
+		<div class="custom_con etBox" ms-visible="designerTag == 'all' || designerTag == 'et'" ms-if="clientName!='et'">
+			<a class="location" name="et"></a>
+			<div class="csm_head">
+				<h3 class="csmtitle">Excel/ET定制<a ms-visible="designerTag == 'all'" href="#" class="all" ms-click-1="clickOneTypeAllDesigners('et')"  ms-click-2="clickDesignerTag(0,'baobiao')" ms-click-3="sendCollect(5)">全部>></a></h3>
+				<div class="csmtab">
+					<ul class="dsg_type">
+						<li ms-visible="designerTag == 'et'"><a href="#" ms-class="active:0==designerTagId.et" ms-click="clickDesignerTag(0,'baobiao')">全部</a></li>
+						<li ms-repeat-el="designerTagData.et"><a href="#" ms-class="active:el.id==designerTagId.et" ms-text="el.name" ms-click="clickDesignerTag(el.id,'baobiao')"></a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- 设计师内容切换 --> 
+			<!-- 个性简历 -->
+			<div class="tabcon_dsg" style="display: block;">
+				<div class="dsglist" >
+					<ul class="clearfix">
+						<li ms-visible="$index<hideMaxNum*pageIndex" ms-repeat-el="showDesignerData.et" ms-mouseenter="mouseenter($index)" ms-mouseleave="mouseleave($index)">
+							<div class="whitebg" >
+								<div class="dsgcon">
+									<div ms-click="designerShop($index,'et')" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
+									<div class="worker_label">
+										<span>小样</span>
+										<span>小样小样</span>
+										<span>小样小样</span>
+										<span>小样</span>
+									</div>
+									<div ms-click="designerShop($index)" class="dsgimg">
+										<a href="javascript:void(0);" > 
+											<img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.logo" alt="">
+											<span class="dsgname" ms-text="el.name"></span>
+											<span ms-visible="el.status==1" class="status">(空闲)</span>
+											<span ms-visible="el.status==2" class="status">(离线)</span>
+											<span ms-visible="el.status==3" class="status">(繁忙)</span>
+										</a>
+										<span class="dsg_sales">月销量 <span ms-text="el.total_order"></span>
+									</div>
+									<div class="dsg_prize">￥<span ms-text="designerPrice.et"></span>元/页</div>
+									<div class="cb"></div>
+									<a ms-attr-href="tencent://message/?uin={{el.qq}}&site=qq&menu=yes" class="btn_bd_orange2"  ms-click="sendCollect(3)" target="_top">在线咨询</a>
+									<!-- 20160615去掉	
+									<div ms-attr-id="dgrEmploy_1{{$index}}" class="btnc" style="display:block"><a href="javascript:void(0);" class="btn_hire">雇佣TA</a></div>
+									<div ms-attr-id="dgrEmploy_2{{$index}}" class="btnc">
+										<a ms-attr-href="tencent://message/?uin={{el.qq}}&site=qq&menu=yes" class="btn_orange"  ms-click="sendCollect(3)" target="_top">洽谈需求</a>
+										<a ms-click="customPay(el.id)"  ms-click-2="sendCollect(4)" href="javascript:void(0);" class="btn_bd_orange" target="_top">支付佣金</a>
+									</div>
+									-->
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div ms-visible="hideMaxNum*pageIndex<showDesignerData.et.length" class="moredsg" ms-click="moreDesigner()"  ms-click-2="sendCollect(5)"><a href="javascript:void(0);" class="more">更多设计师</a></div>
 			<!-- 设计师  end -->
 		</div>
 		<!-- 报表定制 内容展示 end -->
 
 		<!-- 法律定制 内容展示  -->
-		<div class="custom_con" ms-visible="designerTag == 'all' || designerTag == 'law'">
+		<div class="custom_con lawBox" ms-visible="designerTag == 'all' || designerTag == 'law'">
 			<a class="location" name="law"></a>
 			<div class="csm_head">
-				<h3 class="csmtitle">法律定制<a ms-visible="designerTag == 'all'" href="javascript:void(0);" class="all" target="_blank" ms-click="choseOneTypeDesigner('law')"  ms-click-2="sendCollect(5)">全部>></a></h3>
+				<h3 class="csmtitle">法律合同定制<a ms-visible="designerTag == 'all'" href="#" class="all" ms-click-1="clickOneTypeAllDesigners('law')"  ms-click-2="clickDesignerTag(0,'law')" ms-click-3="sendCollect(5)">全部>></a></h3>
 				<div class="csmtab">
 					<ul class="dsg_type">
+						<li ms-visible="designerTag == 'law'"><a href="#" ms-class="active:0==designerTagId.law" ms-click="clickDesignerTag(0,'law')">全部</a></li>
 						<li ms-repeat-el="designerTagData.law"><a href="#" ms-class="active:el.id==designerTagId.law" ms-text="el.name" ms-click="clickDesignerTag(el.id,'law')"></a></li>
 					</ul>
 				</div>
@@ -236,7 +452,7 @@
 						<li ms-visible="$index<hideMaxNum*pageIndex" ms-repeat-el="showDesignerData.law" ms-mouseenter="mouseenter($index)" ms-mouseleave="mouseleave($index)">
 							<div class="whitebg" >
 								<div class="dsgcon">
-									<div ms-click="designerShop($index)" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
+									<div ms-click="designerShop($index,'law')" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
 									<div class="worker_label">
 										<span>小样</span>
 										<span>小样小样</span>
@@ -269,17 +485,19 @@
 					</ul>
 				</div>
 			</div>
+			<div ms-visible="hideMaxNum*pageIndex<showDesignerData.law.length" class="moredsg" ms-click="moreDesigner()"  ms-click-2="sendCollect(5)"><a href="javascript:void(0);" class="more">更多设计师</a></div>
 			<!-- 设计师  end -->
 		</div>
 		<!-- 法律定制 内容展示 end -->
 
 		<!-- 平面设计 内容展示  -->
-		<div class="custom_con" ms-visible="designerTag == 'all' || designerTag == 'graphic'">
+		<div class="custom_con graphicBox" ms-visible="designerTag == 'all' || designerTag == 'graphic'">
 			<a class="location" name="design"></a>
 			<div class="csm_head">
-				<h3 class="csmtitle">平面设计<a ms-visible="designerTag == 'all'" href="javascript:void(0);" class="all" target="_blank" ms-click="choseOneTypeDesigner('graphic')"  ms-click-2="sendCollect(5)">全部>></a></h3>
+				<h3 class="csmtitle">平面设计<a ms-visible="designerTag == 'all'" href="#" class="all" ms-click-1="clickOneTypeAllDesigners('graphic')"  ms-click-2="clickDesignerTag(0,'graphic')" ms-click-3="sendCollect(5)">全部>></a></h3>
 				<div class="csmtab">
 					<ul class="dsg_type">
+						<li ms-visible="designerTag == 'graphic'"><a href="#" ms-class="active:0==designerTagId.graphic" ms-click="clickDesignerTag(0,'graphic')">全部</a></li>
 						<li ms-repeat-el="designerTagData.graphic"><a href="#" ms-class="active:el.id==designerTagId.graphic" ms-text="el.name" ms-click="clickDesignerTag(el.id,'graphic')"></a></li>
 					</ul>
 				</div>
@@ -292,7 +510,7 @@
 						<li ms-visible="$index<hideMaxNum*pageIndex" ms-repeat-el="showDesignerData.graphic" ms-mouseenter="mouseenter($index)" ms-mouseleave="mouseleave($index)">
 							<div class="whitebg" >
 								<div class="dsgcon">
-									<div ms-click="designerShop($index)" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
+									<div ms-click="designerShop($index,'graphic')" class="dsgtemimg"><a href="javascript:void(0);"><img ms-if="$index<hideMaxNum*pageIndex" ms-attr-src="el.cover_img" alt=""></a></div>
 									<div class="worker_label">
 										<span>小样</span>
 										<span>小样小样</span>
@@ -325,6 +543,7 @@
 					</ul>
 				</div>
 			</div>
+			<div ms-visible="hideMaxNum*pageIndex<showDesignerData.graphic.length" class="moredsg" ms-click="moreDesigner()"  ms-click-2="sendCollect(5)"><a href="javascript:void(0);" class="more">更多设计师</a></div>
 			<!-- 设计师  end -->
 		</div>
 		<!-- 平面设计 内容展示 end -->

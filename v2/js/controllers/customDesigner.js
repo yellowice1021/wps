@@ -215,6 +215,9 @@ define(['jquery', 'avalon', 'dataServices',
             return num==0?"持平平均值":(num>0?"比平均值高":"比平均值低");
         },
         backIndex:function(){
+        	$("#mainBox").animate({
+        		scrollTop:0
+        	},0);
             vm.showMe=false;
             avalon.vmodels.mainCtrl.showMe=true;
         },

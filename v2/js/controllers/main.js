@@ -30,13 +30,17 @@ define(['jquery', 'avalon', 'dataServices',
         topBannerIndex: 1,				// 上方轮播图索引号
         topBannerTimer: "",				// 上方轮播图计时器
         topBannerAminated: false,		// 上方轮播图是否处在动画中     
-        rightDesignerTag: "ppt",		// 右方悬浮栏定位
+//      rightDesignerTag: "ppt",		// 右方悬浮栏定位
         showDesignerData:{wpp:[],word:[],et:[],law:[],graphic:[]},		// 要显示的设计师列表数据	
 //      oneTypeDesignerData:{wpp:[],word:[],et:[],law:[],graphic:[]},	// 选定某一类型的设计师列表数据
-        allTypeDesignerData:{wpp:[],word:[],et:[],law:[],graphic:[]},	// 全部类型的设计师列表数据
-        designerTagData:{wpp:[],word:[],et:[],law:[],graphic:[]},		// 各类型的相应标签
+//      allTypeDesignerData:{wpp:[],word:[],et:[],law:[],graphic:[]},	// 全部类型的设计师列表数据
+        designerTagData:{wpp:[],word:[],et:[],law:[],graphic:[]},		// 各类型的相应标签数据
         designerTagId:{wpp:"",word:"",et:"",law:"",graphic:""},			// 各类型相应标签选中状态
-        designerPrice:{wpp:"",word:"",et:"",law:"",graphic:""},		// 各类型设计师对应的价格
+        designerPrice:{wpp:"",word:"",et:"",law:"",graphic:""},			// 各类型设计师对应的价格
+        clientName:"wpp",												// 客户端进来类型
+        threeClent:"",			
+        topBannerBox:[],												// 用来存放上方轮播图图片
+        topBannerNum:2,													// 上方轮播图图片数量，默认为2
         
         // 点击按钮事件
         clickTopBanner: function(inIndex, outIndex){
@@ -51,24 +55,21 @@ define(['jquery', 'avalon', 'dataServices',
         
         // 上方轮播图淡入淡出
         topBannerMove: function(inIndex, outIndex){
-        	
         	var topBannerBox = $(".csm_banner_ul li");
         	$(topBannerBox[outIndex - 1]).fadeOut(200, function(){
         		vm.topBannerAminated = false;
         		$(topBannerBox[inIndex - 1]).fadeIn(200);
-        	});
-        	
-        	vm.topBannerIndex = inIndex;
-        	
+        	});       	
+        	vm.topBannerIndex = inIndex;       	
         },
         
         // 上方轮播图开始轮播
         topBannerStart: function(){
         	vm.topBannerTimer = setInterval(function(){
-        		if(vm.topBannerIndex == 1){
-        			vm.topBannerMove(2, 1);
+        		if(vm.topBannerIndex == vm.topBannerNum){
+        			vm.topBannerMove(1, vm.topBannerIndex);
         		}else{
-        			vm.topBannerMove(1, 2);
+        			vm.topBannerMove(vm.topBannerIndex + 1, vm.topBannerIndex);
         		}
         	}, 6000);
         },
@@ -76,16 +77,6 @@ define(['jquery', 'avalon', 'dataServices',
         // 上方轮播图停止轮播
         topBannerStop: function(){
         	clearInterval(vm.topBannerTimer);
-        },
-        
-        // 回到顶部
-        returnToTop: function(){
-        	alert(document.body.scrollTop);       
-        },
-        
-        // 点击查看全部或上方导航栏时查看具体类型时加载相应设计师数据
-        choseOneTypeDesigner: function(value){
-        	vm.setValue("designerTag", value);
         },
         
         // 加载所有设计师数据
@@ -99,71 +90,100 @@ define(['jquery', 'avalon', 'dataServices',
                     }else{
                         data=resp.data;
                     }
+                    // 保存上方轮播图图片
+                    vm.topBannerBox = data.banner;
+                    vm.topBannerNum = vm.topBannerBox.length;
+                    console.log(vm.topBannerNum);
+//                  console.log(vm.topBannerBox.length);
                     // 保存ppt设计师列表数据
-                    vm.allTypeDesignerData['wpp'] = data.ppt.designer;			// 点击全部时ppt对呀的设计师列表数据
+//                  vm.allTypeDesignerData['wpp'] = data.ppt.designer;			// 点击全部时ppt对呀的设计师列表数据
                     vm.showDesignerData['wpp'] = data.ppt.designer;				// 要显示的设计师列表数据
                     vm.designerTagData['wpp'] = data.ppt.rec_tags;				// 标签数据
                     vm.designerTagId['wpp'] = data.ppt.rec_tags[0].id;			// 设置当前标签id
                     vm.designerPrice['wpp'] = parseInt(data.ppt.price);			// 设置相应类型设计师的价格
                     
                     // 保存简历定制设计师列表数据
-                    vm.allTypeDesignerData['word'] = data.jianli.designer;			// 点击全部时ppt对呀的设计师列表数据
+//                  vm.allTypeDesignerData['word'] = data.jianli.designer;			// 点击全部时ppt对呀的设计师列表数据
                     vm.showDesignerData['word'] = data.jianli.designer;				// 要显示的设计师列表数据
                     vm.designerTagData['word'] = data.jianli.rec_tags;				// 标签数据
                     vm.designerTagId['word'] = data.jianli.rec_tags[0].id;			// 设置当前标签id
                     vm.designerPrice['word'] = parseInt(data.jianli.price);			// 设置相应类型设计师的价格
                     
                     // 保存报表定制设计师列表数据
-                    vm.allTypeDesignerData['et'] = data.baobiao.designer;			// 点击全部时ppt对呀的设计师列表数据
+//                  vm.allTypeDesignerData['et'] = data.baobiao.designer;			// 点击全部时ppt对呀的设计师列表数据
                     vm.showDesignerData['et'] = data.baobiao.designer;				// 要显示的设计师列表数据
                     vm.designerTagData['et'] = data.baobiao.rec_tags;				// 标签数据
                     vm.designerTagId['et'] = data.baobiao.rec_tags[0].id;			// 设置当前标签id
                     vm.designerPrice['et'] = parseInt(data.baobiao.price);			// 设置相应类型设计师的价格
                     
                     // 保存法律定制设计师列表数据
-                    vm.allTypeDesignerData['law'] = data.law.designer;				// 点击全部时ppt对呀的设计师列表数据
+//                  vm.allTypeDesignerData['law'] = data.law.designer;				// 点击全部时ppt对呀的设计师列表数据
                     vm.showDesignerData['law'] = data.law.designer;					// 要显示的设计师列表数据
                     vm.designerTagData['law'] = data.law.rec_tags;					// 标签数据
                     vm.designerTagId['law'] = data.law.rec_tags[0].id;				// 设置当前标签id
                     vm.designerPrice['law'] = parseInt(data.law.price);				// 设置相应类型设计师的价格
                     
                     // 保存平面设计设计师列表数据
-                    vm.allTypeDesignerData['graphic'] = data.graphic.designer;			// 点击全部时ppt对呀的设计师列表数据
+//                  vm.allTypeDesignerData['graphic'] = data.graphic.designer;			// 点击全部时ppt对呀的设计师列表数据
                     vm.showDesignerData['graphic'] = data.graphic.designer;				// 要显示的设计师列表数据
                     vm.designerTagData['graphic'] = data.graphic.rec_tags;				// 标签数据
                     vm.designerTagId['graphic'] = data.graphic.rec_tags[0].id;			// 设置当前标签id
                     vm.designerPrice['graphic'] = parseInt(data.graphic.price);			// 设置相应类型设计师的价格
                     //wpsLazyLoad.init();
                 }else{
-                	alert('hello');
+                	console.log(error);
                 }
             });
         },
         
-        // 点击相应类型设计师右上方标签
+        // 点击查看全部或上方导航栏时查看具体类型时加载相应设计师数据
+        clickOneTypeAllDesigners: function(type){
+        	vm.pageIndex = 1;
+        	var idType = type=="ppt"? "wpp": type;
+        	console.log(type);
+        	console.log(idType);
+        	vm.designerTag = type;
+        	vm.designerTagId[idType] = 0;  
+        	$("#mainBox").animate({
+        		scrollTop:0
+        	},0);
+        	// 重新初始化下方轮播图
+        	if(type == 'ppt'){
+        		vm.initCaseBanner(1);
+        	}else if(type == 'word'){
+        		$("#cstTurnUl_word")[0].style.left = "0px";
+        		vm.initCaseBanner();
+        	}else if(type == 'et'){
+        		vm.initCaseBanner();
+        	}
+        },
+        
+        // 点击相应类型设计师右上方标签,显示相应标签下的设计师
         clickDesignerTag: function(id, types){
+        	vm.pageIndex = 1;
         	var tagType = {jianli:'word',ppt:'wpp',baobiao:'et'}
         	var selectType = tagType[types]?tagType[types]:types; 
         	vm.designerTagId[selectType] = id;
-        	console.log(id);
-        	console.log(types);
-        	console.log(selectType);
         	vm.queryOneTypeDesigner(id, types, selectType);
         },
         
         // 点击分类或标签时加载设计师列表数据
         queryOneTypeDesigner: function(id, types, selectType){
         	
-        	var limits = types=='ppt'? 8: 4;							// 设置翻页偏移量，ppt为8，其它为4
-        	
+        	var limits;												// 设置翻页偏移量，ppt为8，其它为4     
+        	if(vm.designerTag == 'all'){
+        		limits = types=='ppt'? 8: 4;						// 首页时显示ppt设计师数量为8，其它为4
+        	}else{
+        		limits = 50;											// 某类型设计师都默认显示数量为8
+        	}
+        	console.log(limits);
             var datas = {
             	tagid: id,											// 标签id,为0时只搜分类
-                type: types,									// 设计师类型
+                type: types,										// 设计师类型
                 offset: (vm.pageDesigner.pageIndex-1)*limits,		// （当前页数-1）*偏移量
                 limit: limits										// 翻页偏移ppt为8，其它为4
 //              limit:vm.pageDesigner.pageCount
             }
-            console.log(datas.limit);
             customdataServices.queryOneTypeDesignerData({data:datas}).done(function(resp) {
                 if (resp.result === 'ok') {
                     var data=[];
@@ -173,7 +193,6 @@ define(['jquery', 'avalon', 'dataServices',
                         data=resp.data;
                     }
                     vm.showDesignerData[selectType] = data;
-                    console.log(data);
                     //wpsLazyLoad.init();
                 }else{
                 	console.log('error');
@@ -182,11 +201,12 @@ define(['jquery', 'avalon', 'dataServices',
         },
 
         init : function() {
-        	// 判断从哪个客户端进来
-            var app=vm.getQueryStringRegExp("app")||'all';
+        	 
+            var app=vm.getQueryStringRegExp("app")||'wpp';			// 判断从哪个客户端进来   
             var appJson={wps:'word',wpp:'ppt',et:'et'};
-            vm.setValue("designerTag",appJson[app]?appJson[app]:'all');
-            vm.setValue("rightDesignerTag",appJson[app]?appJson[app]:'ppt');
+            vm.setValue("clientName",appJson[app]?appJson[app]:'ppt');
+            vm.setValue("designerTag",'all');						// 设置一开始进入的是展示全部的页面
+//          vm.setValue("rightDesignerTag",appJson[app]?appJson[app]:'ppt');
 
             vm.controlUserStatus();
             vm.pageResize('frist');
@@ -198,12 +218,17 @@ define(['jquery', 'avalon', 'dataServices',
             setTimeout(function(){
                 vm.isLoadDone=true;
                 //更新
-                vm.initCaseBanner();
+//              vm.initCaseBanner();
                 vm.topBannerStart();
             },300);
 
         },
         submitTask:function(){
+        	vm.setValue("designerTag", "all");	// 重新初始化上方导航，使返回时显示“全部”分类下所有数据
+        	vm.queryAllDesignerDatas();
+        	$("#mainBox").animate({
+        		scrollTop:0
+        	},0);
             if(window.parent&&window.parent.$&&window.parent.$.subscribe){
                 if(vm.isLogin){
                     vm.showMe=false;
@@ -214,13 +239,16 @@ define(['jquery', 'avalon', 'dataServices',
                 customOnekey.init();
              }
         },
-        designerShop:function(indexNo){
-        	console.log(vm.designerTag)
+        designerShop:function(indexNo, type){
             vm.showMe=false;
-            var designerInfo=vm.desingerData[vm.designerTag][indexNo];
+            var designerInfo=vm.showDesignerData[type][indexNo];
+            console.log(designerInfo);
             customDesigner.designerInfo=designerInfo;
             customDesigner.init(designerInfo.id);
             customDesigner.designerTag=vm.designerTag;
+            $("#mainBox").animate({
+        		scrollTop:0
+        	},0);
         },
         //显示更多设计师
         moreDesigner:function(){
