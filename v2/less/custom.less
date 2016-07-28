@@ -14,9 +14,9 @@ a:hover{ color: @txtcolor_orange; }
 
 .custom_scroll{ position: absolute; top: 0; left: 0; right: 4px; bottom: 0; overflow-y: auto; overflow-x: hidden; }
 
-.top_nav{position: fixed;z-index: 999;width: 100%;height: 72px;line-height: 72px;background: #f7f7f7;font-size: 18px;}
+.top_nav{position: fixed;z-index: 999;width: 100%;height: 72px;background: #f7f7f7;}
 	.top_nav_center{
-		width: 1198px;margin: 0 auto;
+		width: 1198px;margin: 0 auto;line-height: 72px;font-size: 18px;
 		li{float: left;}
 		a{display: block;float: left;padding: 0 20px;}
 		a.active,a.active:link,a.active:visited{color: @txtcolor_orange;}
@@ -38,12 +38,13 @@ a:hover{ color: @txtcolor_orange; }
 // 	a.btn_free:hover{ background: @orange_hover;}
 // 	a.btn_free:active{ background: @orange_active;}
 // }
+.ms-controller{display: none;}
 .csm_banner{position: relative;width: 100%;margin-top: 72px;height: 127px;overflow: hidden;}
 .csm_banner_ul{
-	li{position: absolute;top: 0;left: 0;width: 100%;height: 100%;}
+	li{display: none;position: absolute;top: 0;left: 0;width: 100%;height: 100%;}
 	a{display: block;}
-	img{position: absolute;top: 0;left: 50%;margin-left: -1158px / 2;}
 }
+.csm_banner_ul li:first-child{display: block;}
 .banner_dot_ul{
 	position: absolute;right: 22px;bottom: 10px;
 	li{float: left;width: 22px;height: 22px;}
@@ -74,7 +75,7 @@ a:hover{ color: @txtcolor_orange; }
 	}
 
 /* 右侧发布需求 */
-.postbar{.fr; width:112px; height: 30px; position: relative; }
+.postbar{position: absolute;top: 20px;left: 50%;margin-left: 1158px / 2 - 112px - 5;width:112px; height: 30px; }
 	a.btn_postcase{display: block; width: 92px; height: 30px; line-height: 30px; padding-left: 20px; font-size: 14px; color: #fff; background: @orange_normal url("@{path}@{img_custom}?v=@{version}") no-repeat 70px 2px; }
 	a.btn_postcase:hover{background: @orange_hover url("@{path}@{img_custom}?v=@{version}") no-repeat 70px 2px;}
 	a.btn_postcase:active{background: @orange_active url("@{path}@{img_custom}?v=@{version}") no-repeat 72px 2px;}
@@ -126,7 +127,7 @@ a:hover{ color: @txtcolor_orange; }
 }
 
 .worker_label{
-	padding-top: 4px;
+	padding-top: 4px;height: 27px;overflow: hidden;
 	span{display: block;float: left;height: 23px;line-height: 23px;border-radius: 23px;padding: 0 8px;color: #a29d9d;background: #f5f5f5;margin-right: 9px;margin-top: 4px;}
 }
 .dsgname{.ib;height: 24px;max-width: 80px;.txov; line-height: 24px; font-size: 16px; padding-left: 2px;}
