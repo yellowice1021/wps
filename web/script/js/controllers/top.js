@@ -130,6 +130,13 @@ define(function(require, exports, module) {
 			date = openTimeHandler.get(data.nexttime, data.interval);		
 
 			dataObj = data;
+			
+			//标题栏跳转链接
+			if(miniType == 1){
+				TopCtrl.logoHref = data.hot_logo_url;	
+			}else{
+				TopCtrl.logoHref = data.shop_logo_url;
+			}
 
 			//每个页签加载时间
 			TopCtrl.loadTime = (data.loadtime || 7) * 1000;						
@@ -562,6 +569,24 @@ define(function(require, exports, module) {
 		vm.tag = -1;	
 
 		vm.num = 0;
+		
+		//标题栏logo跳转链接
+		vm.logoHref = '';
+		
+		//标题栏小红点
+		vm.redDot = true;
+		
+		//标题栏是否显示天气tip
+		vm.weatherTip = false;
+		
+		//标题栏是否显示礼包tip
+		vm.giftBagShow = false;
+		
+		//天气图标序号
+		vm.weatherIconNum = '22';
+		
+		//天气图标png gif
+		vm.weatherIconType = '.png';
 
 		//自动加载时，每个图片的加载时间
 		vm.loadTime = 7000;
@@ -749,7 +774,7 @@ define(function(require, exports, module) {
 			var p = CollectHandler.getParam();
 			vm.miniVersion = $('#version').val();						
 			vm.collectParam = MiniApi.enCodeString(p.substring(0, p.length - 1));
-			vm.getNavData();														
+			vm.getNavData();	
 
 			if (stateMode !== 0) {
 				vm.showMiniSite();
@@ -1029,6 +1054,7 @@ define(function(require, exports, module) {
 			if (!vm.isShow) {				
 				vm.openTime = new Date();
 				vm.isShow = true;
+				vm.initVersion();
 				setTimeout(function() {
 					//当为web模式时，定时关闭贴片广告
 					if (mode === 'web') {
@@ -1066,6 +1092,39 @@ define(function(require, exports, module) {
 				
 			}			 
 		}		
+		
+		//判断版本号是否更新(更新则显示标题栏小红点)
+		vm.initVersion = function() {
+
+			var nowVersion = CollectHandler.getVersion();				// 获取客户端版本号
+			var oldVersion = MiniApi.readRegSetting("wpsVersion");		// 读取缓存中客户端版本号
+			
+			if(oldVersion){
+				// 缓存存在
+				if(nowVersion === oldVersion){	//版本号不变
+					vm.redDot = true;
+				}else{							//版本号改变
+					vm.redDot = true;
+				}
+				MiniApi.writeRegSetting('wpsVersion', nowVersion);			// 更新缓存
+			}else{
+				// 缓存不存在则写入缓存
+				MiniApi.writeRegSetting('wpsVersion', nowVersion);
+				vm.redDot = true;
+			}
+			
+		}
+		
+		//点击标题栏
+		vm.setRedDot = function() {
+			if(vm.redDot){
+				vm.redDot = false;
+			}
+		}
+		
+		vm.setValue = function(key, value) {
+			vm[key] = value;	
+		}
 
 		//整体刷新
 		vm.refreshTop = function(e) {
@@ -1746,10 +1805,6 @@ define(function(require, exports, module) {
 	};		
 
 	avalon.scan();
-
-	alert(1);
-	alert(window.external.JsGetCookie(".baidu.com","BIDUPSID"));
-	alert(2);
 
 	return TopCtrl;
 });

@@ -42,32 +42,57 @@ a:focus { outline:0; }
  
 #topbar{ height:44px; position:relative; z-index: 8;}
 
-.top_move{ z-index:2; position:absolute; top:0; left:0px; width:700px; height:44px;  cursor:default; }
+.top_move{ z-index:2; position:absolute; top:0; left:130px; width:500px; height:44px;  cursor:default; }
 
 .logo{ 
 	&{ z-index:1;position:absolute; top:8px; left:10px; height:32px; width:130px; background: url("@{imgpath}@{imgfile}?v=@{version}") no-repeat 0 0 ;}
 	a{display:block; height:30px; }
 }
 
-.feature{z-index:3; position:absolute; top:7px; left:150px; width:350px; color:#f5f6fe; padding-right:13px; line-height:27px; height: 27px; cursor:default;   
-	a{ display: block; float: left; height: 27px; cursor: pointer;}
+.feature{
+	&{ z-index:3; position:absolute; top:7px; left:50%; margin-left: -170px; width:350px; color:#f5f6fe; padding-right:13px; line-height:27px; height: 27px; cursor:default; text-align: center; }
+	.f_status{ display:none; height: 27px; cursor: pointer;  position: absolute; top: 0; left: 0; }
+	.f_status:hover{ text-decoration: none; }
+		span.reddot{ z-index: 10; display: block; position: absolute; top: 4px; right: -6px;  width: 6px; height: 6px; ; background: url("@{imgpath}@{imgfile}?v=@{version}") no-repeat -140px -130px; }
+	.f_status2{ left: 70px;}	
+	.f_status3{ left: 80px;}	
+
+	.roll_pos{  display: block;  height: 27px; overflow: hidden; position: relative;}
+		.rolldiv{ display: block; height: 54px; position: relative; 
+			span.h27{ display: block;}
+		}
 }
-	.feature_txt{float: left; display: block; height: 27px; line-height: 27px; min-width: 108px; cursor: pointer; }
-	.feature_icon{ float: left; display: block;  height: 27px; line-height: 27px; width:20px; background:  url("@{imgpath}feature_icon1.gif?v=@{version}") no-repeat 0 0; cursor: pointer; }
-	.feature_icon1{background: url("@{imgpath}feature_icon1.gif?v=@{version}") no-repeat 0 4px; }
+	.feature_txt{ .fl; display: block; height: 27px; line-height: 27px; min-width: 108px; cursor: pointer; }
+	.feature_txt2{ .fl;display: block; height: 27px; line-height: 27px; padding-left: 5px; padding-right: 5px;  } 
+
+	.feature_icon{ .fl; display: block; height: 27px; line-height: 27px; width:20px; cursor: pointer; background:  url("@{imgpath}feature_icon1.gif?v=@{version}") no-repeat 0 0;  }
+	.feature_icon1{ background: url("@{imgpath}feature_icon1.gif?v=@{version}") no-repeat 0 4px; }
 	.feature_icon2{ background: url("@{imgpath}feature_icon2.gif?v=@{version}") no-repeat 0 4px;}
-	.feature_icon3{background: url("@{imgpath}feature_icon3.gif?v=@{version}") no-repeat 0 4px; }
+	.feature_icon3{ background: url("@{imgpath}feature_icon3.gif?v=@{version}") no-repeat 0 4px; }
+
+	
+	.weather_icon{ .fl; display: block; height: 27px; line-height: 27px; width:24px; cursor: pointer; position: relative; 
+		img{position: absolute; top: 1px; left: 0;}
+	 }
+		
+
+.wtipsbg{ display: none; z-index: 5; position: absolute; top: 24px; left: 46px; padding: 9px 8px 0 7px; width: 118px; height: 23px; .txtover; background: url("@{imgpath}@{imgfile}?v=@{version}") no-repeat -268px -290px;
+		a:link,a:visited,a:hover,a:active{ color: #7b7b7b; line-height: 17px; }
+		a.closeiconad{display: block;position: absolute; top: 14px; right: 4px; width: 10px; height: 10px; overflow: hidden; text-indent: -99px; background: url("@{imgpath}@{imgfile}?v=@{version}") no-repeat -140px -330px;}
+		a.closeiconad:hover{ background-position: -150px -330px;}
+		a.closeiconad:active{ background-position: -160px -330px;}
+	}
 
 /* 百度搜索框 
 .baidusearch{ z-index: 3; position:absolute; top:11px; right:208px; width: 210px; height: 21px; background: url("@{imgpath}baidu.png?v=@{version}") no-repeat 0 0;
 	.baiduinput{ z-index: 4;position: absolute; top: 0; left: 28px; width: 157px;  height: 21px; line-height: 21px; border: 0 none; outline: 0}
 	a.btn_baidu{ z-index: 4; position: absolute; top: 3px; right: 9px; display: block; width: 15px; height: 14px; overflow: hidden;  background: url("@{imgpath}baidu.png?v=@{version}") no-repeat 0px -30px; }
 	a.btn_baidu:hover{ background-position: -20px -30px;}
-}*/
+}
 
-.baidu_r140{right: 140px;}
+.baidu_r140{right: 140px;} */
 
-/* 百度文字链 */
+/* 百度文字链
 .baidu_txtlink { z-index: 4; position:absolute; right:208px; top: 10px; height: 21px; width:165px; overflow: hidden;
 	a.close_txtlink{display: none; position: absolute; top:6px; right: 4px; width: 10px; height: 10px; overflow: hidden; text-indent: -99px; background: url("@{imgpath}@{imgfile}?v=@{version}") no-repeat -180px -330px;}
 	a.close_txtlink:hover{ background-position: -190px -330px;}
@@ -75,12 +100,14 @@ a:focus { outline:0; }
 	iframe { margin: 0; padding: 0; border: 0; height: 21px; background: none;}
 }
 	.div_ad_wps,.div_ad_gh{ display: none;}
+ */
+
 
 /* 右上角广告 */
 .topad{
-	&{ display: none; z-index: 4; position:absolute; top:1px; right:124px; width: 80px;  height:36px; }
-	a.mincionad:link,a.mincionad:visited,a.mincionad:hover,a.mincionad:active {display: block; position: relative; width: 80px; height: 40px; text-decoration: none;  text-align: center;}
-		img{ /* width: 80px; */ height:36px;}
+	&{ display: none; z-index: 4; position:absolute; top:1px; right:124px; width: 80px; height:36px; }
+	a.mincionad:link,a.mincionad:visited,a.mincionad:hover,a.mincionad:active {display: block; position: relative; padding-left: 48px; width: 22px; height: 36px; text-decoration: none; text-align: center;  background: url("@{imgpath}ricon_1.png?v=@{version}") no-repeat 0 10px}
+		img{ height:36px;}
 	.adtipsbg{ display: none; z-index: 5; position: absolute; top: 38px; left: -62px; padding: 10px 10px 0 10px; width: 140px; height: 21px; .txtover; background: url("@{imgpath}@{imgfile}?v=@{version}") no-repeat -140px -290px;
 		a:link,a:visited,a:hover,a:active{ color: #ea763d; }
 		a.closeiconad{display: block;position: absolute; top: 14px; right: 4px; width: 10px; height: 10px; overflow: hidden; text-indent: -99px; background: url("@{imgpath}@{imgfile}?v=@{version}") no-repeat -140px -330px;}
@@ -88,7 +115,7 @@ a:focus { outline:0; }
 		a.closeiconad:active{ background-position: -160px -330px;}
 	}
 	
-}	
+}
 
 .btnbar{ 
 	&{ z-index:8; position:absolute; top:1px; right:8px; width:126px; _width:114px;  height:30px;  }

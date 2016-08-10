@@ -4,7 +4,12 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	<title>WPS mini 2.9.9</title>
 	<link ms-controller="TopCtrl" rel="stylesheet" type="text/css" ms-href="{{miniType == '2' ? 'script/css/skin1/main.css':'script/css/main.css'}}" media="all" />
-	<link rel="stylesheet" type="text/css" href="http://img1.mini.cache.wps.cn/wpsmini/script/2.9.9/css/page.css" media="all" />	
+	 
+	<!--<link  rel="stylesheet" type="text/css" href="script/css/skin2/main.css" />-->
+	 
+
+	<link rel="stylesheet" type="text/css" href="http://img1.mini.cache.wps.cn/wpsmini/script/2.9.9/css/page.css" media="all" />
+	
 	<script type="text/javascript" src="script/js/tab.js"></script>
 </head>
 <body ms-controller="TopCtrl" ms-click="closeSetting">		
@@ -12,13 +17,51 @@
 	<div id="container">					
 		<!-- 标题栏 -->
 		<div id="topbar">
-			<div class="logo"><!-- <a hidefocus="true"  ms-href="logoUrl" target="_blank" ms-mousedown="moveWindow" ms-mouseup="openUrl(logoUrl)"></a> --></div>
+			<div class="logo">
+			<!-- <a hidefocus="true"  ms-href="logoUrl" target="_blank" ms-mousedown="moveWindow" ms-mouseup="openUrl(logoUrl)"></a> -->
+			<a hidefocus="true" class="buylogo" ms-href="logoHref" target="_blank"></a> 
+			</div>
 			<!--  -->
 			<div class="top_move" ms-mousedown="moveWindow"></div>
-			<div class="feature" style="width: 130px;">
-				<a ms-href="'http://gou.wps.cn/weather/index.shtml?cid='+dressNum"  target="_blank">
-					<span class="feature_txt" ms-text="weather" style="color:#fff;"></span>
-					<span class="feature_icon" ms-class="{{{1:'feature_icon1',2:'feature_icon2',3:'feature_icon3'}[weatherFlag]}}" style="display:block;"></span>
+
+			<div class="feature" style="width: 260px;">
+				<!-- 1 天气 +文字  -->
+				<a ms-href="'http://gou.wps.cn/weather/index.shtml?cid='+dressNum"  target="_blank" class="f_status" ms-click="setRedDot()" ms-mouseover="setValue('weatherTip',true)" ms-mouseout="setValue('weatherTip',false)">
+					<span class="feature_txt" ms-text="weather" style="color:#fff;">天气情况</span>
+					<span class="feature_txt2"  style="color:#fff;"> 今天穿什么呢</span>
+					<span class="reddot" ms-visible="redDot" style="display:none"></span>
+				</a>
+				<!-- 小弹出层 -->
+				<div class="wtipsbg" style="display:none;" ms-visible="weatherTip"> 
+					<a  ms-href="giftBagAd.url" target="_blank" ms-text="giftBagAd.notify_text" ms-click="clickGiftNotify(giftBagAd)"></a>
+					<a href="javascript:void(0)" class="closeiconad" title="关闭" ms-click="closeGiftNotify(giftBagAd)" style="display:none;">X</a>
+				</div>
+				<!-- 2 天气图标 GIF -->
+				<a ms-href="'http://gou.wps.cn/weather/index.shtml?cid='+dressNum"  target="_blank" class="f_status f_status2" style="display:block;" ms-click="setRedDot()" ms-mouseover="setValue('weatherTip',true)" ms-mouseout="setValue('weatherTip',false)">
+					<span class="feature_txt" ms-text="weather" style="color:#fff;">天气情况</span>
+					<!-- <span class="weather_icon"><img src="script/css/img/wgif/1.gif" alt="" /></span> -->
+					<!--main样式显示的图标-->
+					<span class="weather_icon" ms-if="miniType == 1"><img ms-src="'script/css/img/wpng/' + weatherIconNum + weatherIconType" alt="" /></span>
+					<!--skin1样式显示的图标-->
+					<span class="weather_icon" ms-if="miniType == 2"><img ms-src="'script/css/skin1/img/wpng/' + weatherIconNum + weatherIconType" alt="" /></span>
+					<!--skin2样式显示的图标-->
+					<span class="weather_icon" ms-if="miniType == 3"><img ms-src="'script/css/skin2/img/wpng/' + weatherIconNum + weatherIconType" alt="" /></span>
+					<span class="reddot" ms-visible="redDot" style="display:none"></span>
+				</a>
+				<!-- 3 天气图标 +文字+滚动 -->
+				<a ms-href="'http://gou.wps.cn/weather/index.shtml?cid='+dressNum"  target="_blank" class="f_status f_status3">
+					<span class="roll_pos">
+						<span class="rolldiv" style="top:-0px;">
+							<span class="h27">
+								<span class="feature_txt" ms-text="weather" style="color:#fff;">天气情况</span>
+								<span class="reddot"></span>
+							</span>
+							<span class="h27">
+								<span class="feature_txt2"  style="color:#fff;"> 今天穿什么呢</span>
+								<span class="weather_icon"><img src="script/css/img/wpng/05.png" alt="" /></span>
+							</span>
+						</span>
+					</span>
 				</a>
 			</div>
 			
@@ -32,21 +75,21 @@
 				 	<input name="tn" type="hidden" value="41052153_1_dg"/>
 				 </form>
 			</div -->
-			<!-- 百度文字链 -->
+			<!-- 百度文字链 
 			<div class="baidusearch baidu_txtlink" ms-class="baidu_r140:!giftBagAd.showAd" ms-visible="bdAdTopVisible" style="display:none" ms-on-mouseenter="showBdAdCloseBtn" ms-on-mouseleave="hideBdAdCloseBtn">
 				<a href="javascript:void(0)" class="close_txtlink" title="关闭" ms-visible="bdAdCloseBtnVisible" ms-click="closeBdAdTop"></a>
 				<div ms-class="{{miniType == '2' ?'div_ad_gh': 'div_ad_wps'}}" style="display:block;" id="bdAd_top" ms-click="closeBdAdTop">
 					<iframe src="http://img1.mini.cache.wps.cn/wpsmini/script/2.9.9/baidu_ad_top.html" allowtransparency="true" border="no" frameborder="no"></iframe>
 				</div>
-			</div>
+			</div>-->
 
 			<!-- 礼包广告 -->
-			<div class="topad" ms-visible="giftBagAd.showAd" >
-				<a class="mincionad" ms-href="giftBagAd.url" target="_blank" ms-click="clickGiftAd(giftBagAd)" ms-attr-title="giftBagAd.hoverTips"><img ms-src="giftBagAd.img" alt="" />
+			<div class="topad" ms-visible="giftBagAd.showAd" ms-mouseover="setValue('giftBagShow',true)" ms-mouseout="setValue('giftBagShow',false)">
+				<a class="mincionad" ms-href="giftBagAd.url" target="_blank" ms-click="clickGiftAd(giftBagAd)" ms-attr-title="giftBagAd.hoverTips"><img ms-src="giftBagAd.img" alt="" /><!-- img src="script/css/img/t.gif" alt="" / -->
 				</a>
-				<div class="adtipsbg"  ms-visible="giftBagAd.showNotifyText">
+				<div class="adtipsbg"  ms-visible="giftBagAd.showNotifyText || giftBagShow" style="display:none; " > 
 					<a  ms-href="giftBagAd.url" target="_blank" ms-text="giftBagAd.notify_text" ms-click="clickGiftNotify(giftBagAd)"></a>
-					<a href="javascript:void(0)" class="closeiconad" title="关闭" ms-click="closeGiftNotify(giftBagAd)">X</a>
+					<a href="javascript:void(0)" class="closeiconad" title="关闭" ms-click="closeGiftNotify(giftBagAd)" style="display:none;">X</a>
 				</div>
 			</div>
 

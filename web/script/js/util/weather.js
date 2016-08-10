@@ -69,7 +69,16 @@ define(function(require, exports, module) {
 					var start = parseInt(temperature.split('~')[1]),			
 						end = parseInt(temperature.split('~')[0]);				
 					
-					TopCtrl.weather = currentCity + ' ' + start + '℃~' + end + '℃ ' + weather;
+					TopCtrl.weather = currentCity + '  ' + start + '℃~' + end + '℃  ' + weather + '  ';
+					
+//					switch(weather){
+//						case '晴': TopCtrl.weatherIconNum = 1; break;
+//						case '多云': TopCtrl.weatherIconNum = 2; break;
+//						case '阴': TopCtrl.weatherIconNum = 3; break;
+//						defaul:
+//					}
+//					
+					TopCtrl.weatcherIcon = '21.png';
 
 					//根据平均温度计算不同的穿衣指数
 					var average = (start + end) / 2;
@@ -91,7 +100,7 @@ define(function(require, exports, module) {
 					}
 					//穿衣指数
 					TopCtrl.dressNum = p;
-					TopCtrl.weatherFlag = weatherInfo.weather.indexOf('云') !== -1 ? 2 : (weatherInfo.weather.indexOf('晴') !== -1 ? 1 : 3);
+					TopCtrl.weatherFlag = 1;
 					if (cache) {
 						MiniApi.writeRegSetting('weather', JSON3.stringify(weatherInfo), true);
 						MiniApi.writeRegSetting('weatherTime', +new Date())
