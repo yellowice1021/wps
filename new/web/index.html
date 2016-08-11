@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>WPS mini 2.9.9</title>
+	<link ms-controller="TopCtrl" rel="stylesheet" type="text/css" ms-href="{{miniType == '2' ? 'script/css/skin1/main.css':'script/css/skin0/main.css'}}" media="all" />
+	<link rel="stylesheet" type="text/css" href="http://img1.mini.cache.wps.cn/wpsmini/script/2.9.9/css/page.css" media="all" />
+	
+	<script type="text/javascript" src="script/js/tab.js"></script>
+</head>
+<body ms-controller="TopCtrl" ms-click="closeSetting">		
+ 
+	<div id="container">					
+		<!-- 标题栏 -->
+		<div id="topbar">
+			<div class="logo">
+			<!-- <a hidefocus="true"  ms-href="logoUrl" target="_blank" ms-mousedown="moveWindow" ms-mouseup="openUrl(logoUrl)"></a> -->
+			<a hidefocus="true" class="buylogo" ms-href="logoHref" target="_blank"></a> 
+			</div>
+			<!--  -->
+			<div class="top_move" ms-mousedown="moveWindow"></div>
+
+			<div class="feature" style="width: 260px;">
+				<!-- 1 天气 +文字  -->
+				<a ms-visible="0" ms-href="'http://gou.wps.cn/weather/index.shtml?cid='+dressNum"  target="_blank" class="f_status" ms-click="setRedDot()" ms-mouseover="setValue('weatherTip',true)" ms-mouseout="setValue('weatherTip',false)">
+					<span class="feature_txt" ms-text="weather" style="color:#fff;">天气情况</span>
+					<span class="feature_txt2"  style="color:#fff;"> 今天穿什么呢</span>
+					<span class="reddot" ms-visible="redDot" style="display:none"></span>
+				</a>
+				<!-- 2 天气图标 GIF -->
+				<a ms-visible="0" ms-href="'http://gou.wps.cn/weather/index.shtml?cid='+dressNum"  target="_blank" class="f_status f_status2" ms-click="setRedDot()" ms-click-1="setValue('weatherIconType','.png')" ms-mouseover="setValue('weatherTip',true)" ms-mouseout="setValue('weatherTip',false)">
+					<span class="feature_txt" ms-text="weather" style="color:#fff;">天气情况</span>
+					<!-- <span class="weather_icon"><img src="script/css/img/wgif/1.gif" alt="" /></span> -->
+					<!--main样式显示的图标-->
+					<span class="weather_icon" ms-if="miniType == 1"><img ms-src="'script/css/img/wpng/' + weatherIconNum + weatherIconType" alt="" /></span>
+					<!--skin1样式显示的图标-->
+					<span class="weather_icon" ms-if="miniType == 2"><img ms-src="'script/css/skin1/img/wpng/' + weatherIconNum + weatherIconType" alt="" /></span>
+					<!--skin2样式显示的图标-->
+					<span class="weather_icon" ms-if="miniType == 3"><img ms-src="'script/css/skin2/img/wpng/' + weatherIconNum + weatherIconType" alt="" /></span>
+					<span class="reddot" ms-visible="redDot" style="display:none"></span>
+				</a>
+				<!-- 3 天气 +文字+滚动 style="top:-27px" -->
+				<a ms-visible="1" ms-href="'http://gou.wps.cn/weather/index.shtml?cid='+dressNum"  target="_blank" class="f_status f_status3" ms-click="setRedDot()" ms-mouseover="setValue('weatherTip',true)" ms-mouseout="setValue('weatherTip',false)">
+					<span class="roll_pos">
+						<span class="rolldiv" ms-css-top="bannerTop" >
+							<span class="h27">
+								<span class="posr">
+									<span class="feature_txt2"  style="color:#fff;"> 今天穿什么什么什么呢</span>
+									<span class="reddot" ms-visible="redDot" style="display:none"></span>
+								</span>
+							</span>
+							<span class="h27">
+								<span class="posr">
+									<span class="feature_txt" ms-text="weather" style="color:#fff;">阵雨转大雨</span>
+									<span class="reddot" ms-visible="redDot" style="display:none"></span>
+								</span>
+							</span>
+							<span class="h27">
+								<span class="posr">
+									<span class="feature_txt2" style="color:#fff;"> 今天穿什么呢</span>
+									<span class="reddot" ms-visible="redDot" style="display:none"></span>
+								</span>
+							</span>
+							<span class="h27">
+								<span class="posr">
+									<span class="feature_txt" ms-text="weather" style="color:#fff;">阵雨转大雨</span>
+									<span class="reddot" ms-visible="redDot" style="display:none"></span>
+								</span>
+							</span>
+						</span>
+					</span>
+				</a>
+				<!-- 小弹出层 -->
+				<div class="wtipsbg" style="display:none;" ms-visible="weatherTip"> 
+					<span ms-text="giftBagAd.notify_text" ></span>
+				</div>
+			</div>
+			
+			<!-- 百度搜索 -->
+			<!-- 右侧的小广告没出来时，百度搜索加这样样式名 baidu_r140 
+			<div class="baidusearch " ms-class="baidu_r140:!giftBagAd.showAd">
+				 <input type="text" class="baiduinput" ms-duplex="bdSearchKey" ms-on-keypress="searchBaidu()"/>
+				 <a href="javascript:void(0)" class="btn_baidu" ms-click="searchBaidu()"></a>
+				 <form id="bdSeachForm" method="get" target="_blank" ms-attr-action="$.trim(bdSearchKey) ? 'https://www.baidu.com/s': 'https://www.baidu.com/index.php'">
+				 	<input ms-if="$.trim(bdSearchKey)" name="word" type="hidden" ms-attr-value="bdSearchKey"/>
+				 	<input name="tn" type="hidden" value="41052153_1_dg"/>
+				 </form>
+			</div -->
+			<!-- 百度文字链 
+			<div class="baidusearch baidu_txtlink" ms-class="baidu_r140:!giftBagAd.showAd" ms-visible="bdAdTopVisible" style="display:none" ms-on-mouseenter="showBdAdCloseBtn" ms-on-mouseleave="hideBdAdCloseBtn">
+				<a href="javascript:void(0)" class="close_txtlink" title="关闭" ms-visible="bdAdCloseBtnVisible" ms-click="closeBdAdTop"></a>
+				<div ms-class="{{miniType == '2' ?'div_ad_gh': 'div_ad_wps'}}" style="display:block;" id="bdAd_top" ms-click="closeBdAdTop">
+					<iframe src="http://img1.mini.cache.wps.cn/wpsmini/script/2.9.9/baidu_ad_top.html" allowtransparency="true" border="no" frameborder="no"></iframe>
+				</div>
+			</div>-->
+
+			<!-- 礼包广告 -->
+			<div class="topad" ms-visible="giftBagAd.showAd" ms-mouseover="setValue('giftBagShow',true)" ms-mouseout="setValue('giftBagShow',false)">
+				<a class="mincionad" ms-href="giftBagAd.url" target="_blank" ms-click="clickGiftAd(giftBagAd)"><img ms-src="bigBagLogoHref" alt="" /><!-- img src="script/css/img/t.gif" alt="" / -->
+				</a>
+				<div class="adtipsbg"  ms-visible="giftBagAd.showNotifyText || giftBagShow" style="display:none; " > 
+					<a  ms-href="giftBagAd.url" target="_blank" ms-text="giftBagAd.hoverTips" ms-click="clickGiftNotify(giftBagAd)"></a>
+					<a href="javascript:void(0)" class="closeiconad" title="关闭" ms-click="closeGiftNotify(giftBagAd)" style="display:none;">X</a>
+				</div>
+			</div>
+
+			<div class="btnbar">
+				<a hidefocus="true"  href="javascript:void(0)" class="btn_desktop" ms-click="addDesktop" title="设置桌面快捷方式">设置桌面快捷方式</a>
+				<a hidefocus="true"  href="javascript:void(0)" class="btn_setting" ms-click="toggleSetting" title="设置">设置</a>
+				<a hidefocus="true"  href="javascript:void(0)" class="btn_min" ms-click="minisize" title="最小化">最小化</a>
+				<a hidefocus="true"  href="javascript:void(0)" class="btn_close" ms-click="closeWindow" title="关闭">关闭</a>
+				<div class="popup_setting" ms-visible="setting">
+					<div class="setlist">
+						<a hidefocus="true"  href="javascript:void(0)" ms-class="selected:showToday" ms-click="toggleOpenToday($event, true, 1)"><span class="selectbox"></span><span class="selecttxt">当天只显示一次</span></a>
+						<a hidefocus="true"  href="javascript:void(0)" ms-class="selected:notShowWeek" ms-click="toggleOpenWeek($event, true, 1)"><span class="selectbox"></span><span class="selecttxt">一周不再弹出</span></a>
+						<a hidefocus="true" target="_blank" href="https://vip.wps.cn/zt/qingtong/?csource=minisite_newnoad"><span class="selectbox"></span><span class="selecttxt">会员去广告</span></a>
+					</div>
+				</div>
+			</div>
+			<div class="cb"></div>
+		</div>
+		<!-- 标题栏 end -->	
+		
+		<div class="loading" ms-visible="showLoading"><p>正在查询WPS最新热点消息...</p></div>
+		<div class="network_error_iframe" ms-visible="showNetError" style="display:none;">
+			<h3>无法访问网络！</h3>
+			<p>请检查网络链接，或<a hidefocus="true"  href="#" class="refresh" onclick="window.location.reload(true)">刷新</a>试试...</p>
+		</div>
+		
+		<div id="page" ms-visible="!showLoading&&!showNetError">
+		
+			<!-- 导航标签 -->
+			<div class="mininav ">
+				<div id="nav">
+					<ul>
+						<li ms-repeat-data="navData" ms-class-1="active:showTag($index, isMore)" ms-attr-style="data.style"><a hidefocus="true"  ms-href="data.link || 'javascript:void(0)'" target="_blank" ms-mouseenter="select($event, $index, data.name)" ms-mouseleave="stopSelect"><span><img ms-if-loop="data.img" ms-attr-src="data.img"></img></span><span ms-if-loop="!data.img" ms-text="data.name"></span></a>
+						</li>
+					</ul>
+					<ul ms-important="MutTabCtrl">
+						<li ms-repeat-data="mutTabData" ms-class-1="active:showTag($index, isMoreMuit)" ms-attr-style="data.style"><a hidefocus="true"    ms-href="data.link || 'javascript:void(0)'" target="_blank" ms-mouseenter="select($event, $index, data.name)" ms-mouseleave="stopSelect"><span><img ms-if-loop="data.img" ms-attr-src="data.img"></img></span><span ms-if-loop="!data.img" ms-text="data.name"></span></a>
+						</li>					
+					</ul>
+				</div>
+				<div class="btn_nav" ms-controller="MutTabCtrl" >
+					<a hidefocus="true" ms-on-mouseenter="enterMoreBtn" ms-on-mouseleave="leaveMoreBtn" href="javascript:void(0)" ms-visible="mutTabData.length" ><span class="txt" ms-text="moreBtnText"></span><em ms-class-1="a:isMore" ms-class-2="b:!isMore" ></em></a>					
+					<!-- 返回用 .arrow_2 -->
+				</div>
+			</div>
+			<!-- 导航标签 end -->
+			
+			<!-- MINI嵌入页面 --> 
+			<div id="content">
+				<div class="miniweb" ms-class="two_screen:isTwoScreen"> <!-- 双屏内容时 这里加 .two_screen 这个样式名 -->
+					<div ms-widget="pagerscreen" ms-visible="isTwoScreen">
+					</div>
+						
+					<!-- 合作方的页面 --><!-- 左侧内容滚动 -->
+					<div class="partar_web" id="parterWeb" ms-class="all_width:!asideAdMask" >
+						<div ms-repeat-data="navData" ms-class="{{data.key}}" ms-visible="showTag($index, isMore)" >
+							<div ms-if-loop="data.type===0">
+								<div class="loading_iframe" ms-visible="data.iframeLoading" style="display:block;">
+									<p>正在查询WPS最新热点消息...</p>
+								</div>		
+								<div class="network_error_iframe" ms-visible="data.iframeError" style="display:none;">
+									<h3>无法访问网络！</h3>
+									<p>请检查网络链接，或<a hidefocus="true"  href="#" class="refresh" ms-click="refreshIframe($event, $index)">刷新</a>试试...</p>
+								</div>
+								<!-- 载入合作方内容的iframe -->
+								<iframe ms-on-readystatechange="iframeLoad($event, $index)" ms-on-load="iframeOnLoad($event, $index)" src="about:blank" ms-attr-id="data.key" frameborder="0"  scrolling=no  allowtransparency="true" ></iframe>
+							</div>	
+
+							<!-- 载入application内容 html -->
+							<div ms-html="typeof data.data === 'string' ? data.data: ''" ms-if-loop="data.type===1">
+								
+							</div>
+							<!-- 载入application内容 end -->
+						</div>
+
+						<div ms-controller="MutTabCtrl" ms-repeat-data="mutTabData" ms-class="{{data.key}}" ms-visible="showTag($index, isMoreMuit)">
+							<div ms-if-loop="data.type===0">
+								<div class="loading_iframe" ms-visible="data.iframeLoading" style="display:block;">
+									<p>正在查询WPS最新热点消息...</p>
+								</div>		
+								<div class="network_error_iframe" ms-visible="data.iframeError" style="display:none;">
+									<h3>无法访问网络！</h3>
+									<p>请检查网络链接，或<a hidefocus="true"  href="#" class="refresh" ms-click="refreshIframeMut($event, $index)">刷新</a>试试...</p>
+								</div>
+								<!-- 载入合作方内容的iframe -->
+								<iframe ms-on-readystatechange="iframeLoadMut($event, $index)" ms-on-load="iframeOnLoadMut($event, $index)" src="about:blank" ms-attr-id="data.key" frameborder="0"  scrolling=no  allowtransparency="true" style="height:900px"></iframe>
+							</div>	
+
+							<!-- 载入application内容 html -->
+							<div ms-html="typeof data.data === 'string' ? data.data: ''" ms-if-loop="data.type===1">
+								
+							</div>
+							<!-- 载入application内容 end -->
+						</div>
+					
+					</div>
+					<!-- 合作方的页面  end -->					
+					
+					
+					<!-- 侧边广告 固定居右不滚动 可控制显示否 -->
+					<div class="aside_ad" ms-visible="asideAdMask">				
+						<div class="ad_one" ms-visible="!isErrorShow" ms-if="asideAdData.length===1">
+							<!-- 右侧只展示一个广告图 -->
+							<iframe ms-repeat-d="asideAdData" ms-src="d.url"  width="100%" height="100%" scrolling="no" frameborder="0"></iframe>
+						</div>
+						
+						<div class="ad_two" ms-if="asideAdData.length>1">
+							<!-- 右侧只展示两个广告图 -->
+							<div ms-repeat-d="asideAdData" ms-class="aside_ad_{{$index + 1}}">
+								<iframe ms-src="d.url" width="100%" height="100%" scrolling="no" frameborder="0"></iframe> 
+							</div>						
+						</div>
+					</div>
+					<!-- 侧边广告 end -->
+
+					
+				
+				</div>
+			</div>
+			<!-- MINI嵌入页面  end -->
+			
+		</div>
+		
+		<!-- 中间贴片广告 开始 -->
+		<div id="floatAd" class="ad_float" style="display:none" ms-visible="floatadMark">
+			<div class="adarea">
+				<iframe ms-src="floatadUrl" width="100%" height="100%" scrolling="no" frameborder="0"></iframe>
+				<a href="javascript:void(0);" class="adclose" title="关闭" ms-click="closeFloatad"></a>
+			</div>
+			
+		</div>
+		<!-- 中间贴片广告 结束 -->
+ 
+
+	</div>	
+	
+</body>
+
+<input type="hidden" id="version" value="2.9.9">
+<script type="text/javascript" src="script/js/util/json3.js"></script>
+<script type="text/javascript" src="script/js/load.js"></script>
+<script type="text/javascript">	
+	load();
+</script>
+</html>
