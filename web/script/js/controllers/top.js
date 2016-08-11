@@ -134,8 +134,10 @@ define(function(require, exports, module) {
 			//标题栏跳转链接
 			if(miniType == 1){
 				TopCtrl.logoHref = data.hot_logo_url;	
+				TopCtrl.bigBagLogoHref = data.giftbag_img_hot_new;
 			}else{
 				TopCtrl.logoHref = data.shop_logo_url;
+				TopCtrl.bigBagLogoHref = data.giftbag_img_shop_new;
 			}
 
 			//每个页签加载时间
@@ -573,6 +575,9 @@ define(function(require, exports, module) {
 		//标题栏logo跳转链接
 		vm.logoHref = '';
 		
+		//标题栏礼包logo
+		vm.bigBagLogoHref = '';
+		
 		//标题栏小红点
 		vm.redDot = true;
 		
@@ -587,6 +592,12 @@ define(function(require, exports, module) {
 		
 		//天气图标png gif
 		vm.weatherIconType = '.png';
+		
+		//天气标题栏位偏移
+		vm.bannerTop = '-27px';
+		
+		//天气样式(随机选择一套)
+		vm.weatherType  = 1;
 
 		//自动加载时，每个图片的加载时间
 		vm.loadTime = 7000;
@@ -770,11 +781,14 @@ define(function(require, exports, module) {
 		vm.$skipArray = ['num', 'loadTime', 'autoTimer', 'hosts', 'hostsLimitTime', 'collectParam', 'miniVersion', 'neverTrans', 'selectTimer', 'path', 'loadType', 'floatadTimer', 'centerTime', 'cityName', 'centerAdway', 'showTime', 'pagerscreen', 'lockMoreBtn', 'pagerscreenModel', 'miniData']
 
 		//初始化
-		vm.init = function() {						
-			var p = CollectHandler.getParam();
+		vm.init = function() {		
+			
+			vm.weather = "晴";
+			var p = CollectHandler.getParam();		
 			vm.miniVersion = $('#version').val();						
 			vm.collectParam = MiniApi.enCodeString(p.substring(0, p.length - 1));
 			vm.getNavData();	
+			vm.getWeatherType();		//随机选取一套天气样式
 
 			if (stateMode !== 0) {
 				vm.showMiniSite();
@@ -1115,15 +1129,58 @@ define(function(require, exports, module) {
 			
 		}
 		
-		//点击标题栏
+		//点击天气广告标题栏
 		vm.setRedDot = function() {
 			if(vm.redDot){
 				vm.redDot = false;
 			}
 		}
 		
+		//设置属性值
 		vm.setValue = function(key, value) {
 			vm[key] = value;	
+		}
+		
+		//天气第三版天气广告上下滚动
+		vm.bannerScroll = function(offset){
+			
+			var scrollTop = parseInt(vm.bannerTop) + offset,
+				speed = 0.8;
+			
+			var go = function() {
+
+				speed = speed + 0.20;
+				if((parseInt(vm.bannerTop) > scrollTop)){	
+					vm.bannerTop = parseInt(vm.bannerTop) - speed + "px";
+					setTimeout(go, 35);				
+				}else{		
+					// 当轮播到最后一张或第一张图片时，修改相关left值
+					if(scrollTop == -81){
+						vm.bannerTop = -27 + "px";
+					}else if(screenTop == -54){
+						vm.bannerTop = 0 + "px";
+					}else{
+						vm.bannerTop = scrollTop + "px";
+					}			
+				}
+			}	
+			
+			go();
+		}
+		
+		//随机生成一套天气样式
+		vm.getWeatherType = function(){
+			vm.weatherType = Math.floor(Math.random()*3 + 1);
+			
+			//第三套样式时开启定时器
+			if(vm.weatherType == 3){
+				setTimeout(go, 2000);	
+			}
+			function go(){
+				setInterval(function(){
+					vm.bannerScroll(-27);
+				}, 3000);
+			}
 		}
 
 		//整体刷新

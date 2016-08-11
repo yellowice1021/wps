@@ -47,42 +47,40 @@ a:focus { outline:0; }
 .logo{ 
 	&{ z-index:1;position:absolute; top:8px; left:10px; height:32px; width:130px; background: url("@{imgpath}@{imgfile}?v=@{version}") no-repeat 0 0 ;}
 	a{display:block; height:30px; }
+	a.buylogo{ display: block; width: 120px; height: 32px; cursor: pointer;}
 }
-
+ 	
+/* 天气 */	
 .feature{
-	&{ z-index:3; position:absolute; top:7px; left:50%; margin-left: -170px; width:350px; color:#f5f6fe; padding-right:13px; line-height:27px; height: 27px; cursor:default; text-align: center; }
-	.f_status{ display:none; height: 27px; cursor: pointer;  position: absolute; top: 0; left: 0; }
+	&{ z-index:3; position:absolute; top:7px; left:50%; margin-left: -170px; width:350px; color:#f5f6fe; line-height:27px; height: 27px; cursor:default; text-align: center; }
+	.f_status{ display:none; height: 27px; cursor: pointer;  position: absolute; top: 0; left: 50%; margin-left: -80px; text-align: center; }
 	.f_status:hover{ text-decoration: none; }
-		span.reddot{ z-index: 10; display: block; position: absolute; top: 4px; right: -6px;  width: 6px; height: 6px; ; background: url("@{imgpath}@{imgfile}?v=@{version}") no-repeat -140px -130px; }
-	.f_status2{ left: 70px;}	
-	.f_status3{ left: 80px;}	
+	.f_status2{ }	
+	.f_status3{ }	
+		span.reddot{ z-index: 10; display: block; position: absolute; top: 4px; right: -6px;  width: 6px; height: 6px; background: url("@{imgpath}@{imgfile}?v=@{version}") no-repeat -140px -130px; }
 
-	.roll_pos{  display: block;  height: 27px; overflow: hidden; position: relative;}
-		.rolldiv{ display: block; height: 54px; position: relative; 
-			span.h27{ display: block;}
+	.roll_pos{  display: block;  height: 20px; overflow: hidden;  margin-top: 4px; position: relative;  }
+		.rolldiv{ display: block; height: 54px; position: relative;  
+			span.h27{ display: block; height: 27px; position: relative; padding-right: 8px; }
+			.posr{display: inline-block; position: relative;}
+			.feature_txt,.feature_txt2{ line-height: 22px; padding-right: 5px; } 
 		}
 }
-	.feature_txt{ .fl; display: block; height: 27px; line-height: 27px; min-width: 108px; cursor: pointer; }
-	.feature_txt2{ .fl;display: block; height: 27px; line-height: 27px; padding-left: 5px; padding-right: 5px;  } 
+	.feature_txt{ .fl; display: block;   height: 27px; line-height: 27px; /* min-width: 108px; */  cursor: pointer;  }
+	.feature_txt2{ .fl; display: block;  height: 27px; line-height: 27px; padding-left: 5px; padding-left: 5px; } 
 
 	.feature_icon{ .fl; display: block; height: 27px; line-height: 27px; width:20px; cursor: pointer; background:  url("@{imgpath}feature_icon1.gif?v=@{version}") no-repeat 0 0;  }
 	.feature_icon1{ background: url("@{imgpath}feature_icon1.gif?v=@{version}") no-repeat 0 4px; }
 	.feature_icon2{ background: url("@{imgpath}feature_icon2.gif?v=@{version}") no-repeat 0 4px;}
 	.feature_icon3{ background: url("@{imgpath}feature_icon3.gif?v=@{version}") no-repeat 0 4px; }
 
-	
 	.weather_icon{ .fl; display: block; height: 27px; line-height: 27px; width:24px; cursor: pointer; position: relative; 
 		img{position: absolute; top: 1px; left: 0;}
 	 }
-		
 
-.wtipsbg{ display: none; z-index: 5; position: absolute; top: 24px; left: 46px; padding: 9px 8px 0 7px; width: 118px; height: 23px; .txtover; background: url("@{imgpath}@{imgfile}?v=@{version}") no-repeat -268px -290px;
-		a:link,a:visited,a:hover,a:active{ color: #7b7b7b; line-height: 17px; }
-		a.closeiconad{display: block;position: absolute; top: 14px; right: 4px; width: 10px; height: 10px; overflow: hidden; text-indent: -99px; background: url("@{imgpath}@{imgfile}?v=@{version}") no-repeat -140px -330px;}
-		a.closeiconad:hover{ background-position: -150px -330px;}
-		a.closeiconad:active{ background-position: -160px -330px;}
-	}
-	
+	.wtipsbg{ display: none; z-index: 5; position: absolute; top: 24px; left: 46px; padding: 9px 8px 0 7px; width: 118px; height: 23px; .txtover; background: url("@{imgpath}@{imgfile}?v=@{version}") no-repeat -268px -290px;
+			span{ color: #7b7b7b; line-height: 17px; }
+		}
 
 /* 百度搜索框 
 .baidusearch{ z-index: 3; position:absolute; top:11px; right:208px; width: 210px; height: 21px; background: url("@{imgpath}baidu.png?v=@{version}") no-repeat 0 0;
@@ -105,11 +103,11 @@ a:focus { outline:0; }
 
 /* 右上角广告 */
 .topad{
-	&{ display: none; z-index: 4; position:absolute; top:1px; right:124px; width: 80px; height:36px; }
+	&{ display: none; z-index: 4; position:absolute; top:1px; right:134px; width: 80px; height:36px; }
 	a.mincionad:link,a.mincionad:visited,a.mincionad:hover,a.mincionad:active {display: block; position: relative; padding-left: 48px; width: 22px; height: 36px; text-decoration: none; text-align: center;  background: url("@{imgpath}ricon_1.png?v=@{version}") no-repeat 0 10px}
 		img{ height:36px;}
-	.adtipsbg{ display: none; z-index: 5; position: absolute; top: 38px; left: -62px; padding: 10px 5px 0 5px; width: 110px; height: 20px; .txtover; background: url("@{imgpath}@{imgfile}?v=@{version}") no-repeat -140px -290px;  
-		a:link,a:visited,a:hover,a:active{ color: #ea763d; }
+	.adtipsbg{ display: none; z-index: 5; position: absolute; top: 30px; left: 46px; padding: 9px 8px 0 7px; width: 108px; height: 23px; .txtover; background: url("@{imgpath}@{imgfile}?v=@{version}") no-repeat -140px -290px;
+		a:link,a:visited,a:hover,a:active{ color: #7b7b7b; }
 		a.closeiconad{display: block;position: absolute; top: 14px; right: 4px; width: 10px; height: 10px; overflow: hidden; text-indent: -99px; background: url("@{imgpath}@{imgfile}?v=@{version}") no-repeat -140px -330px;}
 		a.closeiconad:hover{ background-position: -150px -330px;}
 		a.closeiconad:active{ background-position: -160px -330px;}

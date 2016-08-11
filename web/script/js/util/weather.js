@@ -15,7 +15,7 @@ define(function(require, exports, module) {
 		return {
 			//判断是否已过时
 			checkCache: function() {
-				var weatherTime = MiniApi.readRegSetting('weatherTime');				
+				var weatherTime = MiniApi.readRegSetting('weatherTime');	
 				//缓存半小时
 				return new Date() - weatherTime > 21600000;												
 			},
@@ -23,7 +23,7 @@ define(function(require, exports, module) {
 			getWeather: function(TopCtrl) {				
 				var self = this,
 					mode = MiniApi.readSetting('minisitemode', '') || 'web';		
-				if (this.checkCache() || mode === 'web') {
+				if (1) {
 					/**
 					*	1，从新浪IP库获取用户当前IP对应城市名
 					*	2，匹配出城市代码
@@ -71,14 +71,98 @@ define(function(require, exports, module) {
 					
 					TopCtrl.weather = currentCity + '  ' + start + '℃~' + end + '℃  ' + weather + '  ';
 					
-//					switch(weather){
-//						case '晴': TopCtrl.weatherIconNum = 1; break;
-//						case '多云': TopCtrl.weatherIconNum = 2; break;
-//						case '阴': TopCtrl.weatherIconNum = 3; break;
-//						defaul:
-//					}
-//					
-					TopCtrl.weatcherIcon = '21.png';
+					//显示第2套天气样式时判断显示哪种图标
+					if(TopCtrl.weatherType == 2){
+						if(weather.indexOf('转') != -1){
+							weather = weather.split('转')[1];	//A转B类型天气取B	
+						}
+						// 根据天气情况显示图标(前五种情况和17种情况使用动态图标)
+						switch(weather){
+							case '晴':
+								TopCtrl.weatherIconNum = '01';
+								TopCtrl.weatherIconType = '.gif';
+						        break;
+						    case '多云':
+								TopCtrl.weatherIconNum = '02';
+								TopCtrl.weatherIconType = '.gif';
+						        break;
+						    case '阴':
+								TopCtrl.weatherIconNum = '03';
+								TopCtrl.weatherIconType = '.gif';
+						        break;
+						    case '阵雨':
+								TopCtrl.weatherIconNum = '04';
+								TopCtrl.weatherIconType = '.gif';
+						        break;
+						    case '雷阵雨':
+								TopCtrl.weatherIconNum = '05';
+								TopCtrl.weatherIconType = '.gif';
+						        break;
+						    case '雷阵雨伴有冰雹':
+								TopCtrl.weatherIconNum = '06';
+						        break;
+						    case '小雨':
+								TopCtrl.weatherIconNum = '07';
+						        break;
+						    case '中雨':
+								TopCtrl.weatherIconNum = '08';
+						        break;
+						    case '大雨':
+								TopCtrl.weatherIconNum = '09';
+						        break;
+						    case '暴雨':
+								TopCtrl.weatherIconNum = '10';
+						        break;
+						    case '大暴雨':
+								TopCtrl.weatherIconNum = '11';
+						        break;
+						    case '特大暴雨':
+								TopCtrl.weatherIconNum = '12';
+						        break;
+						    case '雨夹雪':
+						    case '冻雨':
+								TopCtrl.weatherIconNum = '13';
+						        break;
+						    case '阵雪':
+								TopCtrl.weatherIconNum = '14';
+						        break;
+						    case '小雪':
+								TopCtrl.weatherIconNum = '15';
+						        break;
+						    case '中雪':
+								TopCtrl.weatherIconNum = '16';
+						        break;
+						    case '大雪':
+								TopCtrl.weatherIconNum = '17';
+								TopCtrl.weatherIconType = '.gif';
+						        break;
+						    case '暴雪':
+								TopCtrl.weatherIconNum = '18';
+						        break;
+						    case '雾':
+								TopCtrl.weatherIconNum = '19';
+						        break;
+						    case '浮尘':
+								TopCtrl.weatherIconNum = '20';
+						        break;
+						    case '扬沙':
+								TopCtrl.weatherIconNum = '21';
+						        break;
+						    case '沙尘暴':
+								TopCtrl.weatherIconNum = '22';
+						        break;
+						    case '强沙尘暴':
+								TopCtrl.weatherIconNum = '23';
+						        break;
+						    case '霾':
+								TopCtrl.weatherIconNum = '24';
+						        break;
+						    
+						    default:
+						        TopCtrl.weatherIconNum = "";
+						        break;
+						}
+					}
 
 					//根据平均温度计算不同的穿衣指数
 					var average = (start + end) / 2;
@@ -100,10 +184,10 @@ define(function(require, exports, module) {
 					}
 					//穿衣指数
 					TopCtrl.dressNum = p;
-					TopCtrl.weatherFlag = 1;
+
 					if (cache) {
 						MiniApi.writeRegSetting('weather', JSON3.stringify(weatherInfo), true);
-						MiniApi.writeRegSetting('weatherTime', +new Date())
+						MiniApi.writeRegSetting('weatherTime', +new Date());
 					}					
 				} catch(_) {				
 				}
